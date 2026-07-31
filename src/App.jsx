@@ -7,7 +7,7 @@ function App() {
         <div className="card"></div>
         <h1>👋 Welcome</h1>
         <h2>Thamid Hasnine</h2>
-        <h3>AUST CSE</h3>
+          <h3>AUST CSE 53</h3>
         <p>React Developer 🚀</p>
       </div>
     </div>
