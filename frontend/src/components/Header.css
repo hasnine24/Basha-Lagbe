@@ -1,0 +1,95 @@
+.site-header {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+
+.header-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================
+   LOGO SECTION
+========================= */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.header-logo-image {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header-brand-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: #11233f;
+  letter-spacing: -0.5px;
+}
+
+/* =========================
+   NAVIGATION LINKS
+========================= */
+.main-nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+  color: #1a8eff;
+}
+
+.main-nav a.active {
+  color: #1a8eff;
+}
+
+/* =========================
+   AUTH BUTTONS
+========================= */
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+
+@media (max-width: 900px) {
+  .main-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-brand-name {
+    display: none;
+  }
+
+  .header-wrapper {
+    padding: 0 16px;
+  }
+}
