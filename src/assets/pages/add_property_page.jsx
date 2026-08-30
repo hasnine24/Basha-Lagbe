@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./add_property_page.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
 export default function AddPropertyPage() {
   const [images, setImages] = useState([]);
   const handleImageUpload = (e) => {

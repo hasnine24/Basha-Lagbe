@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import "./product_details.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -70,8 +71,10 @@ const getIcon = (label) => {
 };
 
 function ProductPage({ propertyData }) {
+  const location = useLocation();
+
   // Use passed dynamic property if available, otherwise fallback to the default property data
-  const property = propertyData || defaultProperty;
+  const property = propertyData || location.state?.propertyData || defaultProperty;
 
   return (
     <div className="layout" id="top">
