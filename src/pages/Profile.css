@@ -1,0 +1,71 @@
+.profile-page {
+  min-height: calc(100vh - 75px);
+  margin-top: 75px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 70px 20px;
+
+  background: #f8fafc;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 600px;
+
+  padding: 36px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.profile-card h1 {
+  margin-bottom: 28px;
+  color: #11233f;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.profile-info {
+  display: grid;
+  gap: 20px;
+}
+
+.profile-info div {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.profile-info span {
+  display: block;
+  margin-bottom: 5px;
+
+  color: #64748b;
+  font-size: 13px;
+}
+
+.profile-info strong {
+  color: #11233f;
+  font-size: 15px;
+}
+
+.logout-button {
+  margin-top: 28px;
+
+  padding: 11px 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #11233f;
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}

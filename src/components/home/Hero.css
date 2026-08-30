@@ -1,0 +1,144 @@
+.hero {
+  min-height: 460px;
+  margin: 99px 40px 0;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  min-height: 460px;
+  background: rgba(17, 35, 63, 0.2);
+
+  display: flex;
+  align-items: flex-start;
+
+  padding: 90px 56px 40px;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 760px;
+  color: #ffffff;
+}
+
+.hero-content h1 {
+  max-width: 620px;
+  margin: 0 0 12px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 42px;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+}
+
+.hero-content p {
+  max-width: 570px;
+  margin: 0 0 26px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.hero-search {
+  width: 100%;
+  max-width: 590px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 5px 6px 5px 18px;
+
+  background: #ffffff;
+  border-radius: 999px;
+}
+
+.hero-search input {
+  flex: 1;
+  min-width: 0;
+
+  border: none;
+  outline: none;
+
+  padding: 12px 8px;
+
+  background: transparent;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: #11233f;
+}
+
+.hero-search input::placeholder {
+  color: #64748b;
+}
+
+.hero-search button {
+  border: none;
+  border-radius: 999px;
+
+  padding: 11px 24px;
+
+  background: #1a8eff;
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.hero-search button:hover {
+  background: #167be3;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    margin: 91px 20px 0;
+  }
+
+  .hero-overlay {
+    padding: 80px 40px 40px;
+  }
+
+  .hero-content h1 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 520px;
+    margin: 16px 12px 0;
+  }
+
+  .hero-overlay {
+    min-height: 520px;
+    padding: 70px 22px 30px;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 15px;
+  }
+
+  .hero-search {
+    max-width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 6px;
+    border-radius: 14px;
+  }
+
+  .hero-search button {
+    width: 100%;
+  }
+}
