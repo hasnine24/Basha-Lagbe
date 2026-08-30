@@ -3,26 +3,29 @@
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  font-family: 'Poppins', sans-serif;
+
+  font-family: "Poppins", sans-serif;
 }
 
 .header-wrapper {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 24px;
+
   height: 75px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* =========================
-   LOGO SECTION
-========================= */
+/* Logo */
+
 .header-logo {
   display: flex;
   align-items: center;
@@ -43,20 +46,21 @@
   letter-spacing: -0.5px;
 }
 
-/* =========================
-   NAVIGATION LINKS
-========================= */
+/* Navigation */
+
 .main-nav {
   display: flex;
-  gap: 30px;
   align-items: center;
+  gap: 30px;
 }
 
 .main-nav a {
   text-decoration: none;
   color: #64748b;
+
   font-size: 15px;
   font-weight: 600;
+
   transition: color 0.2s ease;
 }
 
@@ -68,22 +72,22 @@
   color: #1a8eff;
 }
 
-/* =========================
-   AUTH BUTTONS
-========================= */
+/* Authentication */
+
 .header-auth {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 
 .btn-login {
   text-decoration: none;
   color: #11233f;
+
   font-size: 15px;
   font-weight: 700;
+
   padding: 10px 16px;
-  transition: color 0.2s ease;
 }
 
 .btn-login:hover {
@@ -92,39 +96,47 @@
 
 .btn-signup {
   text-decoration: none;
+
   background-color: #1a8eff;
   color: #ffffff;
+
   font-size: 15px;
   font-weight: 600;
+
   padding: 12px 24px;
+  border: none;
   border-radius: 8px;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .btn-signup:hover {
   background-color: #167be3;
-  box-shadow: 0 4px 12px rgba(26, 142, 255, 0.25);
 }
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
+/* Responsive */
+
 @media (max-width: 900px) {
   .main-nav {
-    display: none; /* In a real app, you would add a hamburger menu here */
+    display: none;
   }
 }
 
 @media (max-width: 600px) {
   .header-brand-name {
-    display: none; /* Hide text on very small screens to save space */
+    display: none;
   }
-  
+
+  .header-wrapper {
+    padding: 0 16px;
+  }
+
   .btn-login {
     display: none;
   }
-  
-  .header-wrapper {
-    padding: 0 16px;
+
+  .btn-signup {
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }
