@@ -1,0 +1,157 @@
+.floating-search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s ease-out;
+}
+
+
+.fs-modal {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.fs-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.fs-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+}
+
+.fs-close-btn {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 4px;
+}
+
+.fs-close-btn:hover {
+    color: #4b5563;
+}
+
+.fs-body {
+    padding: 24px;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+.fs-input,
+.fs-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #374151;
+    outline: none;
+    background-color: #ffffff;
+    transition: border-color 0.2s;
+}
+
+.fs-input:focus,
+.fs-select:focus {
+    border-color: #3b82f6;
+}
+
+.fs-input::placeholder {
+    color: #9ca3af;
+}
+
+.mb-3 {
+    margin-bottom: 16px;
+}
+
+.fs-section {
+    margin-bottom: 20px;
+}
+
+.fs-section label,
+.fs-col label {
+    display: block;
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.fs-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.fs-col {
+    flex: 1;
+}
+
+.fs-select:disabled {
+    background-color: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.fs-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-top: 1px solid #e5e7eb;
+    background-color: #ffffff;
+}
+
+.fs-cancel-btn {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.fs-cancel-btn:hover {
+    color: #374151;
+}
+
+.fs-submit-btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.fs-submit-btn:hover {
+    background-color: #0052a3;
+}
