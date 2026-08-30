@@ -7,8 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function AddPropertyPage() {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
-  
-  // 1. Create state to hold all form data
+
   const [formData, setFormData] = useState({
     title: "",
     type: "",
@@ -26,62 +25,6 @@ export default function AddPropertyPage() {
     }
   });
 
-  // 2. Handle input changes and update state
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    if (type === 'checkbox') {
-      setFormData(prev => ({
-        ...prev,
-        includes: {
-          ...prev.includes,
-          [name]: checked
-        }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    }
-  };
-
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file));
-    setImages((prev) => [...prev, ...newImages]);
-  };
-
-  const removeImage = (indexToRemove) => {
-    setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
-  };
-
-  // 3. Handle form submission (POST to backend)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    try {
-      // Connect to our backend API
-      const response = await fetch("http://localhost:4000/api/properties", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData) // Send data as JSON
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        navigate("/"); // Go back to home/product page
-      } else {
-        alert("Failed to add property: " + data.message);
-      }
-    } catch (error) {
-      console.error("Error submitting property:", error);
-      alert("Error connecting to the server. Make sure your backend is running!");
-    }
-  };
 
   return (
     <>
@@ -91,7 +34,6 @@ export default function AddPropertyPage() {
           <h1>Add New Property</h1>
           <form onSubmit={handleSubmit}>
             
-            {/* Basic Details Section */}
             <div className="form-section">
               <h2>Basic Details</h2>
               <div className="grid-2">
