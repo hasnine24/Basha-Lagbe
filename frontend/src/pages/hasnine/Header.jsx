@@ -43,7 +43,11 @@ function Header() {
             </NavLink>
 
             <NavLink to="/add-property">
-              Add Product
+              Add Property
+            </NavLink>
+
+            <NavLink to="/edit-property">
+              Edit Property
             </NavLink>
 
             <a
