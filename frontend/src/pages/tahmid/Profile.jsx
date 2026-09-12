@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../hasnine/Header";
 import Footer from "../hasnine/Footer";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -5,6 +6,7 @@ import "./Profile.css";
 
 function Profile() {
   const { user, logout } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -39,9 +41,19 @@ function Profile() {
             </div>
           </div>
 
-          <button type="button" className="logout-button" onClick={handleLogout}>
-            Logout
-          </button>
+          <div className="profile-actions">
+            <button type="button" className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
+
+            <button
+              type="button"
+              className="my-properties-button"
+              onClick={() => navigate("/my-properties")}
+            >
+              My Properties
+            </button>
+          </div>
         </div>
       </main>
 

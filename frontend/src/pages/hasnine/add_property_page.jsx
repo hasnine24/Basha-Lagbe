@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./add_property_page.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import axiosInstance from "../../utils/axiosInstance";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function AddPropertyPage() {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -56,6 +60,10 @@ export default function AddPropertyPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     setLoading(true);
     setMessage("");
 
@@ -87,6 +95,10 @@ export default function AddPropertyPage() {
       });
       setImages([]);
     } catch (error) {
+      if (error.response?.status === 401) {
+        navigate("/login");
+        return;
+      }
       console.error(error);
       setMessage(error.response?.data?.message || "Failed to add property. Please fill all fields.");
     } finally {

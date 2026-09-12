@@ -9,6 +9,8 @@ import Properties from "./pages/tahmid/Properties";
 
 import ProductPage from "./pages/hasnine/product_page";
 import AddPropertyPage from "./pages/hasnine/add_property_page";
+import MyProperties from "./pages/waseq/MyProperties";
+import EditPropertyPage from "./pages/waseq/EditPropertyPage";
 import PrivateRoute from "./utils/PrivateRoute";
 import PublicRoute from "./utils/PublicRoute";
 
@@ -24,11 +26,13 @@ function App() {
 
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/my-properties" element={<MyProperties />} />
+        <Route path="/add-property" element={<AddPropertyPage />} />
+        <Route path="/edit-property/:id" element={<EditPropertyPage />} />
       </Route>
 
       <Route path="/properties" element={<Properties />} />
       <Route path="/properties/:id" element={<ProductPage />} />
-      <Route path="/add-property" element={<AddPropertyPage />} />
     </Routes>
   );
 }

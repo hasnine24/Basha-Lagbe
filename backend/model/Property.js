@@ -17,6 +17,10 @@ const propertySchema = new Schema(
       serviceCharge: { type: Boolean, default: false },
     },
     images: [{ type: String }],
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

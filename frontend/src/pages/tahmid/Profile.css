@@ -52,9 +52,16 @@
   font-size: 15px;
 }
 
-.logout-button {
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   margin-top: 28px;
+  flex-wrap: wrap;
+}
 
+.logout-button,
+.my-properties-button {
   padding: 11px 22px;
 
   border: none;
@@ -68,4 +75,10 @@
   font-weight: 600;
 
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover,
+.my-properties-button:hover {
+  background: #1e3a5f;
 }
