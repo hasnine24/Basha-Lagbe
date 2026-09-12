@@ -1,49 +1,80 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 import "./product_details.css";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const defaultProperty = {
-  title: "Hasnine 2A",
-  price: "20,000",
-  address: "Hatirjhill,Mohanagar,Dhaka",
-  images: [
-    "https://rents.sgp1.digitaloceanspaces.com/rents/property/2026/08/818f6861-6662-404d-ac44-db5f746ad0f7-qC1vMk.webp",
-    "https://rents.sgp1.digitaloceanspaces.com/rents/property/2026/08/8cd135dd-b39f-4fec-8738-2863b1c95f3c-Udcd6Y.webp",
-    "https://rents.sgp1.digitaloceanspaces.com/rents/property/2026/08/b593ff33-1a5f-4622-a665-5dfe5accc29a-9L6ROr.webp",
-    "https://rents.sgp1.digitaloceanspaces.com/rents/property/2026/08/69aa2635-23ae-4825-9dc1-f86b0a09a644-yKLsch.webp",
-  ],
-  details: [
-    ["Property Size", "2500 sq ft"],
-    ["Bed", "4"],
-    ["Bath", "3"],
-    ["Balconies", "4"],
-    ["Price", "20000"],
-    ["Property Type", "Apartment"],
-    ["Gas Included", "Yes"],
-    ["Water Included", "Yes"],
-    ["Service Charge Included", "No"],
-    ["Description", "Modern Apartment"],
-  ],
-};
-
 function ProductPage() {
-  const [property, setProperty] = useState(defaultProperty);
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const { id } = useParams(); // Gets the 'id' part from the URL (e.g. /properties/123)
+  
+  // States to keep track of data
+  const [property, setProperty] = useState(null);       // The property details
+  const [loading, setLoading] = useState(true);         // Is it loading?
+  const [error, setError] = useState("");               // Did an error occur?
+  const [selectedIndex, setSelectedIndex] = useState(null); // Which image is open full-screen?
 
+  // useEffect automatically fetches the property data when the page loads
+  useEffect(() => {
+    const fetchProperty = async () => {
+      try {
+        // Ask the backend for the specific property using the 'id'
+        const res = await axiosInstance.get(`/properties/${id}`);
+        setProperty(res.data); // Save the data to our state
+      } catch (err) {
+        console.error("Failed to fetch property details", err);
+        setError(err.message || "Failed to load property");
+      } finally {
+        setLoading(false); // Stop the loading animation
+      }
+    };
+    
+    fetchProperty();
+  }, [id]); // [id] means it will fetch again if the URL id changes
+
+  // Go to previous image in the full-screen view
   const handlePrev = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Stops the click from closing the image
+    if (!property?.images?.length) return;
+    
     setSelectedIndex((prev) =>
-      prev > 0 ? prev - 1 : property.images.length - 1,
+      prev > 0 ? prev - 1 : property.images.length - 1
     );
   };
 
+  // Go to next image in the full-screen view
   const handleNext = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Stops the click from closing the image
+    if (!property?.images?.length) return;
+    
     setSelectedIndex((prev) =>
-      prev < property.images.length - 1 ? prev + 1 : 0,
+      prev < property.images.length - 1 ? prev + 1 : 0
     );
   };
+
+  // What to show while we are waiting for data
+  if (loading) return <div><Header /><main style={{padding: '50px', textAlign: 'center'}}>Loading property...</main><Footer /></div>;
+  if (error) return <div><Header /><main style={{padding: '50px', textAlign: 'center', color: 'red'}}>Error: {error}</main><Footer /></div>;
+  if (!property) return <div><Header /><main style={{padding: '50px', textAlign: 'center'}}>Property not found</main><Footer /></div>;
+
+  // If the property has no images, keep it as an empty array
+  const images = property.images?.length > 0 ? property.images : [];
+  const safeProperty = { ...property, images };
+
+  // Prepare a list of details to easily map over them and show in a grid
+  // Format: ["Label", "Value"]
+  const details = [
+    ["Property Size", `${property.area} sq ft`],
+    ["Bed", property.bedrooms],
+    ["Bath", property.bathrooms],
+    ["Balconies", property.balconies],
+    ["Price", property.price],
+    ["Property Type", property.type],
+    ["Gas Included", property.includes?.gas ? "Yes" : "No"],
+    ["Water Included", property.includes?.water ? "Yes" : "No"],
+    ["Service Charge", property.includes?.serviceCharge ? "Yes" : "No"],
+    ["Description", property.description],
+  ];
 
   return (
     <div className="layout" id="top">
@@ -69,22 +100,24 @@ function ProductPage() {
           </div>
         </section>
 
-        <section className="gallery" aria-label="Property photos">
-          {property.images.slice(0, 4).map((image, index) => (
-            <div
-              key={index}
-              className="img-wrapper"
-              onClick={() => setSelectedIndex(index)}
-            >
-              <img src={image} alt={`Property view ${index + 1}`} />
-            </div>
-          ))}
-        </section>
+        {safeProperty.images.length > 0 && (
+          <section className="gallery" aria-label="Property photos">
+            {safeProperty.images.slice(0, 4).map((image, index) => (
+              <div
+                key={index}
+                className="img-wrapper"
+                onClick={() => setSelectedIndex(index)}
+              >
+                <img src={image} alt={`Property view ${index + 1}`} />
+              </div>
+            ))}
+          </section>
+        )}
 
         <section className="description-section" id="details">
           <h3 className="section-title-rents">Description</h3>
           <div className="details-grid-rents">
-            {property.details.map(([label, value]) => (
+            {details.map(([label, value]) => (
               <div className="detail-row-rents" key={label}>
                 <span className="detail-label">{label}:</span>
                 <span className="detail-value">{value}</span>
@@ -159,7 +192,7 @@ function ProductPage() {
               &times;
             </span>
             <img
-              src={property.images[selectedIndex]}
+              src={safeProperty.images[selectedIndex]}
               alt="Full screen property view"
               onClick={(e) => e.stopPropagation()}
             />

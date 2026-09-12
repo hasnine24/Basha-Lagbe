@@ -25,43 +25,75 @@ export default function AddPropertyPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // handleInputChange updates our formData state when the user types in a text box
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Get the name of the input and what the user typed
     setFormData((prev) => ({
-      ...prev,
-      [name]: value
+      ...prev,          // Keep all the old data
+      [name]: value     // Update only the field that changed
     }));
   };
 
+  // handleCheckboxChange updates checkboxes like "Gas Included", "Water Included"
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       includes: {
         ...prev.includes,
-        [name]: checked
+        [name]: checked // Update the specific checkbox to true or false
       }
     }));
   };
 
+  // handleImageUpload shows a preview of the images before uploading
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file));
+    // Store both the file object (for uploading) and the preview URL (for showing on screen)
+    const newImages = files.map((file) => ({
+      file: file,
+      url: URL.createObjectURL(file)
+    }));
     setImages((prev) => [...prev, ...newImages]);
   };
 
+  // removeImage deletes an image from the preview list
   const removeImage = (indexToRemove) => {
     setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
 
+  // handleSubmit runs when the user clicks the "Create Property" button
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
+    e.preventDefault(); // Stop the page from reloading
+    setLoading(true);   // Show a loading text on the button
+    setMessage("");     // Clear any old messages
 
     try {
-      // In a real app, you'd upload images to a server/Cloudinary first and get URLs.
-      // Here we just send the form data to the backend.
+      // 1. Upload images to our Node.js Backend first
+      const uploadedImageUrls = [];
+      
+      if (images.length > 0) {
+        const uploadData = new FormData();
+        // Loop through all selected images and append them to FormData
+        for (const imgObj of images) {
+          uploadData.append("images", imgObj.file);
+        }
+
+        try {
+          // Send to our backend which will upload to Cloudinary
+          const uploadRes = await axiosInstance.post("/properties/uploadImages", uploadData, {
+            headers: { "Content-Type": "multipart/form-data" }
+          });
+          
+          if (uploadRes.data.urls) {
+            uploadedImageUrls.push(...uploadRes.data.urls);
+          }
+        } catch (uploadError) {
+          console.error("Failed to upload images to backend", uploadError);
+        }
+      }
+
+      // 2. Prepare data for our backend
       const payload = {
         title: formData.title,
         type: formData.type,
@@ -73,7 +105,7 @@ export default function AddPropertyPage() {
         bathrooms: Number(formData.bathrooms),
         balconies: Number(formData.balconies),
         includes: formData.includes,
-        images: [] // Empty for now as there is no image upload backend yet
+        images: uploadedImageUrls // Send the Cloudinary URLs to our backend!
       };
 
       const res = await axiosInstance.post("/properties", payload);
@@ -274,9 +306,9 @@ export default function AddPropertyPage() {
               
               {images.length > 0 && (
                 <div className="image-preview-container">
-                  {images.map((img, index) => (
+                  {images.map((imgObj, index) => (
                     <div className="image-preview-item" key={index}>
-                      <img src={img} alt="Property preview" />
+                      <img src={imgObj.url} alt="Property preview" />
                       <button
                         type="button"
                         className="remove-image-btn"
@@ -290,7 +322,7 @@ export default function AddPropertyPage() {
             
             <div className="buttons">
               <button type="submit" className="create-btn" disabled={loading}>
-                {loading ? "Creating..." : "Create Property"}
+                {loading ? "Adding..." : "Add Property"}
               </button>
               <button type="button" className="cancel-btn">
                 Cancel
