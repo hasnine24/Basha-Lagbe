@@ -1,57 +1,31 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
-
-const Property = require('./models/Property');
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import "dotenv/config";
+import express from "express";
+import connectDB from "./server/db.js";
+import authRouter from "./api/auth.js";
+import userRoutes from "./api/users.js";
+import propertiesRouter from "./api/properties.js";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5001;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "http://localhost:5173";
 
-app.use(cors()); 
-app.use(express.json()); 
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: ALLOWED_ORIGIN }));
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/bashalagbe';
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB Successfully!'))
-  .catch((err) => console.error('MongoDB connection error:', err));
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.get("/api", (req, res) => {
+  res.json({ message: "Basha Lagbe API is working" });
 });
 
-app.get('/', (req, res) => {
-  res.send('Basha-Lagbe Backend is running!');
-});
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRouter);
+app.use("/api/properties", propertiesRouter);
 
-app.post('/properties', async (req, res) => {
-  try {
-    const newProperty = new Property(req.body);
-    const savedProperty = await newProperty.save();
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+};
 
-    console.log('Property added successfully!');
-
-    res.status(201).json({
-      message: 'Property added successfully!',
-      property: savedProperty
-    });
-
-  } catch (error) {
-    console.error('Error saving property:', error);
-    res.status(500).json({
-      message: 'Failed to add property',
-      error: error.message
-    });
-  }
-});
-
-app.get('/properties', async (req, res) => {
-  try {
-    const properties = await Property.find().sort({ createdAt: -1 });
-    res.json(properties);
-  } 
-  catch (error) {
-    res.status(500).json({ message: 'Failed to fetch properties' });
-  }
-});
-
+startServer();
