@@ -25,31 +25,29 @@ export default function AddPropertyPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // handleInputChange updates our formData state when the user types in a text box
   const handleInputChange = (e) => {
-    const { name, value } = e.target; // Get the name of the input and what the user typed
+    const { name, value } = e.target;
     setFormData((prev) => ({
-      ...prev,          // Keep all the old data
-      [name]: value     // Update only the field that changed
+      ...prev,
+      [name]: value
     }));
   };
 
-  // handleCheckboxChange updates checkboxes like "Gas Included", "Water Included"
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       includes: {
         ...prev.includes,
-        [name]: checked // Update the specific checkbox to true or false
+        [name]: checked 
       }
     }));
   };
 
-  // handleImageUpload shows a preview of the images before uploading
+  
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    // Store both the file object (for uploading) and the preview URL (for showing on screen)
+    
     const newImages = files.map((file) => ({
       file: file,
       url: URL.createObjectURL(file)
@@ -57,30 +55,27 @@ export default function AddPropertyPage() {
     setImages((prev) => [...prev, ...newImages]);
   };
 
-  // removeImage deletes an image from the preview list
+  
   const removeImage = (indexToRemove) => {
     setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
 
-  // handleSubmit runs when the user clicks the "Create Property" button
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Stop the page from reloading
-    setLoading(true);   // Show a loading text on the button
-    setMessage("");     // Clear any old messages
+    e.preventDefault(); 
+    setLoading(true);   
+    setMessage("");
 
     try {
-      // 1. Upload images to our Node.js Backend first
       const uploadedImageUrls = [];
       
       if (images.length > 0) {
         const uploadData = new FormData();
-        // Loop through all selected images and append them to FormData
         for (const imgObj of images) {
           uploadData.append("images", imgObj.file);
         }
 
         try {
-          // Send to our backend which will upload to Cloudinary
+          
           const uploadRes = await axiosInstance.post("/properties/uploadImages", uploadData, {
             headers: { "Content-Type": "multipart/form-data" }
           });
@@ -93,7 +88,7 @@ export default function AddPropertyPage() {
         }
       }
 
-      // 2. Prepare data for our backend
+      
       const payload = {
         title: formData.title,
         type: formData.type,
@@ -105,13 +100,13 @@ export default function AddPropertyPage() {
         bathrooms: Number(formData.bathrooms),
         balconies: Number(formData.balconies),
         includes: formData.includes,
-        images: uploadedImageUrls // Send the Cloudinary URLs to our backend!
+        images: uploadedImageUrls 
       };
 
       const res = await axiosInstance.post("/properties", payload);
       setMessage("Property added successfully!");
       console.log(res.data);
-      // Optional: reset form
+      
       setFormData({
         title: "", type: "", price: "", area: "", address: "", description: "",
         bedrooms: "", bathrooms: "", balconies: "",
@@ -135,7 +130,7 @@ export default function AddPropertyPage() {
           {message && <div style={{ padding: '10px', marginBottom: '15px', backgroundColor: message.includes('success') ? '#d4edda' : '#f8d7da', color: message.includes('success') ? '#155724' : '#721c24', borderRadius: '4px' }}>{message}</div>}
           <form onSubmit={handleSubmit}>
             
-            {/* Basic Details Section */}
+            {}
             <div className="form-section">
               <h2>Basic Details</h2>
               <div className="grid-2">
@@ -206,7 +201,7 @@ export default function AddPropertyPage() {
               </div>
             </div>
 
-            {/* Features Section */}
+            {}
             <div className="form-section">
               <h2>Features & Amenities</h2>
               <div className="grid-3">
@@ -280,7 +275,7 @@ export default function AddPropertyPage() {
               </div>
             </div>
 
-            {/* Media Section */}
+            {}
             <div className="form-section">
               <h2>Media</h2>
               <label>Upload Property Images</label>

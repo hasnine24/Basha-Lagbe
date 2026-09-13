@@ -6,35 +6,32 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 function ProductPage() {
-  const { id } = useParams(); // Gets the 'id' part from the URL (e.g. /properties/123)
+  const { id } = useParams(); 
   
-  // States to keep track of data
-  const [property, setProperty] = useState(null);       // The property details
-  const [loading, setLoading] = useState(true);         // Is it loading?
-  const [error, setError] = useState("");               // Did an error occur?
-  const [selectedIndex, setSelectedIndex] = useState(null); // Which image is open full-screen?
+  
+  const [property, setProperty] = useState(null);       
+  const [loading, setLoading] = useState(true);         
+  const [error, setError] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  // useEffect automatically fetches the property data when the page loads
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        // Ask the backend for the specific property using the 'id'
         const res = await axiosInstance.get(`/properties/${id}`);
-        setProperty(res.data); // Save the data to our state
+        setProperty(res.data);
       } catch (err) {
         console.error("Failed to fetch property details", err);
         setError(err.message || "Failed to load property");
       } finally {
-        setLoading(false); // Stop the loading animation
+        setLoading(false); 
       }
     };
     
     fetchProperty();
-  }, [id]); // [id] means it will fetch again if the URL id changes
+  }, [id]); 
 
-  // Go to previous image in the full-screen view
   const handlePrev = (e) => {
-    e.stopPropagation(); // Stops the click from closing the image
+    e.stopPropagation(); 
     if (!property?.images?.length) return;
     
     setSelectedIndex((prev) =>
@@ -42,9 +39,9 @@ function ProductPage() {
     );
   };
 
-  // Go to next image in the full-screen view
+  
   const handleNext = (e) => {
-    e.stopPropagation(); // Stops the click from closing the image
+    e.stopPropagation(); 
     if (!property?.images?.length) return;
     
     setSelectedIndex((prev) =>
@@ -52,17 +49,17 @@ function ProductPage() {
     );
   };
 
-  // What to show while we are waiting for data
+  
   if (loading) return <div><Header /><main style={{padding: '50px', textAlign: 'center'}}>Loading property...</main><Footer /></div>;
   if (error) return <div><Header /><main style={{padding: '50px', textAlign: 'center', color: 'red'}}>Error: {error}</main><Footer /></div>;
   if (!property) return <div><Header /><main style={{padding: '50px', textAlign: 'center'}}>Property not found</main><Footer /></div>;
 
-  // If the property has no images, keep it as an empty array
+  
   const images = property.images?.length > 0 ? property.images : [];
   const safeProperty = { ...property, images };
 
-  // Prepare a list of details to easily map over them and show in a grid
-  // Format: ["Label", "Value"]
+  
+  
   const details = [
     ["Property Size", `${property.area} sq ft`],
     ["Bed", property.bedrooms],

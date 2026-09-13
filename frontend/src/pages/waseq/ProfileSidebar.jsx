@@ -10,7 +10,7 @@ function ProfileSidebar({ isOpen, onClose }) {
       await logout();
       onClose();
     } catch {
-      // Ignored
+      
     }
   };
 

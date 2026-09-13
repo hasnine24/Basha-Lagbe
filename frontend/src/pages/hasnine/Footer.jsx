@@ -6,7 +6,7 @@ export default function Footer() {
       {" "}
       <div className="footer-container">
         {" "}
-        {/* Brand Section */}{" "}
+        {}{" "}
         <div className="footer-brand">
           {" "}
           <a className="footer-logo" href="#top">
@@ -89,7 +89,7 @@ export default function Footer() {
             </a>{" "}
           </div>{" "}
         </div>{" "}
-        {/* Links Section */}{" "}
+        {}{" "}
         <div className="footer-links-wrapper">
           {" "}
           <div className="footer-column">

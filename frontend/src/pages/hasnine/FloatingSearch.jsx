@@ -7,7 +7,6 @@ function FloatingSearch({ isOpen, onClose }) {
   const [location, setLocation] = useState("");
   const navigate = useNavigate();
 
-  // Close modal with Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -22,7 +21,7 @@ function FloatingSearch({ isOpen, onClose }) {
     };
   }, [isOpen, onClose]);
 
-  // Prevent background scrolling while modal is open
+  
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";

@@ -22,8 +22,6 @@ export default function EditPropertyPage() {
   const [fetching, setFetching] = useState(false);
   const [message, setMessage] = useState("");
 
-  // useEffect runs automatically when the page loads
-  // We fetch all properties here so the user can select one from the dropdown
   useEffect(() => {
     const fetchAll = async () => {
       try {
@@ -33,21 +31,21 @@ export default function EditPropertyPage() {
         console.error("Failed to fetch properties list", err);
       }
     };
-    if (!id) fetchAll(); // Only fetch all if there's no specific ID in the URL
+    if (!id) fetchAll(); 
   }, [id]);
 
-  // This useEffect runs automatically when the user selects a property from the dropdown
-  // It fetches the selected property's details and fills the form
+  
+  
   useEffect(() => {
     const fetchProperty = async () => {
-      if (!selectedId) return; // Stop if no property is selected
-      setFetching(true);       // Show a loading text
+      if (!selectedId) return; 
+      setFetching(true);       
       try {
-        // Fetch the details from our backend API
+        
         const res = await axiosInstance.get(`/properties/${selectedId}`);
         const data = res.data;
         
-        // Fill the form data with the fetched details
+        
         setFormData({
           title: data.title || "",
           type: data.type || "",
@@ -64,7 +62,7 @@ export default function EditPropertyPage() {
             serviceCharge: data.includes?.serviceCharge || false,
           }
         });
-        setMessage(""); // Clear message on new selection
+        setMessage("");
       } catch (err) {
         setMessage("Failed to load property details");
       } finally {
@@ -72,15 +70,15 @@ export default function EditPropertyPage() {
       }
     };
     fetchProperty();
-  }, [selectedId]); // Runs every time 'selectedId' changes
+  }, [selectedId]); 
 
-  // Update text inputs when user types
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Update checkbox inputs when user clicks them
+  
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData((prev) => ({
@@ -89,9 +87,9 @@ export default function EditPropertyPage() {
     }));
   };
 
-  // Run when user clicks the "Update Property" button
+  
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Stop page from reloading
+    e.preventDefault(); 
     if (!selectedId) return setMessage("Please select a property to edit.");
     
     setLoading(true);
@@ -189,7 +187,7 @@ export default function EditPropertyPage() {
                 </div>
               </div>
 
-              {/* Features Section */}
+              {}
               <div className="form-section">
                 <h2>Features & Amenities</h2>
                 <div className="grid-3">

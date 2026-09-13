@@ -12,7 +12,7 @@ function FeaturedProperties() {
     const fetchProperties = async () => {
       try {
         const res = await axiosInstance.get("/properties");
-        // Get only the first 3 or 4 for featured
+        
         setProperties(res.data.slice(0, 3));
       } catch (error) {
         console.error("Failed to fetch featured properties:", error);

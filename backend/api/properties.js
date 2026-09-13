@@ -5,24 +5,24 @@ import { v2 as cloudinary } from "cloudinary";
 
 const router = express.Router();
 
-// Setup Multer to store uploaded files in memory temporarily
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Configure Cloudinary using Backend Environment Variables
-// NOTE: Make sure to add these to your backend/.env file
+
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// 0. UPLOAD IMAGES TO CLOUDINARY
+
 router.post("/uploadImages", upload.array("images", 5), async (req, res) => {
   try {
     const urls = [];
     
-    // Upload each file to Cloudinary
+    
     for (const file of req.files) {
       const uploadResult = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
@@ -44,7 +44,7 @@ router.post("/uploadImages", upload.array("images", 5), async (req, res) => {
   }
 });
 
-// 1. ADD PROPERTY (Create)
+
 router.post("/", async (req, res) => {
   try {
     const newProperty = new Property(req.body);
@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 2. GET ALL PROPERTIES
+
 router.get("/", async (req, res) => {
   try {
     const properties = await Property.find().sort({ createdAt: -1 });
@@ -75,7 +75,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 3. GET SINGLE PROPERTY (by ID)
+
 router.get("/:id", async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
@@ -88,11 +88,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// 4. EDIT PROPERTY (Update)
+
 router.put("/:id", async (req, res) => {
   try {
-    // findByIdAndUpdate takes (id, updateData, options)
-    // { new: true } ensures it returns the updated document instead of the old one
+    
+    
     const updatedProperty = await Property.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -116,7 +116,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// 5. DELETE PROPERTY
+
 router.delete("/:id", async (req, res) => {
   try {
     const deletedProperty = await Property.findByIdAndDelete(req.params.id);
