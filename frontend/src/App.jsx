@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import "./App.css";
 
 import Home from "./pages/tahmid/Home";
@@ -17,27 +18,38 @@ import MyProperties from "./pages/waseq/MyProperties";
 import RequestPage from "./pages/waseq/RequestPage";
 import WaseqEditPropertyPage from "./pages/waseq/EditPropertyPage";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      <Route element={<PublicRoute />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Route>
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
 
-
-
-      <Route path="/properties" element={<Properties />} />
-      <Route path="/properties/:id" element={<ProductPage />} />
-      <Route path="/add-property" element={<AddPropertyPage />} />
-      <Route path="/edit-property" element={<EditPropertyPage />} />
-      <Route path="/edit-property/:id" element={<WaseqEditPropertyPage />} />
-      
-      <Route path="/my-properties" element={<MyProperties />} />
-      <Route path="/requests" element={<RequestPage />} />
-    </Routes>
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/properties/:id" element={<ProductPage />} />
+        <Route path="/add-property" element={<AddPropertyPage />} />
+        <Route path="/edit-property" element={<EditPropertyPage />} />
+        <Route path="/edit-property/:id" element={<WaseqEditPropertyPage />} />
+        
+        <Route path="/my-properties" element={<MyProperties />} />
+        <Route path="/requests" element={<RequestPage />} />
+      </Routes>
+    </>
   );
 }
 
