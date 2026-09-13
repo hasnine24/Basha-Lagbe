@@ -2,6 +2,7 @@ import express from "express";
 import Property from "../model/Property.js";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
+import checkToken from "../middlewares/checkToken.js";
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ cloudinary.config({
 });
 
 
-router.post("/uploadImages", upload.array("images", 5), async (req, res) => {
+router.post("/uploadImages", checkToken, upload.array("images", 5), async (req, res) => {
   try {
     const urls = [];
     
@@ -45,7 +46,7 @@ router.post("/uploadImages", upload.array("images", 5), async (req, res) => {
 });
 
 
-router.post("/", async (req, res) => {
+router.post("/", checkToken, async (req, res) => {
   try {
     const newProperty = new Property(req.body);
     const savedProperty = await newProperty.save();
@@ -89,7 +90,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", checkToken, async (req, res) => {
   try {
     
     
@@ -117,7 +118,7 @@ router.put("/:id", async (req, res) => {
 });
 
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", checkToken, async (req, res) => {
   try {
     const deletedProperty = await Property.findByIdAndDelete(req.params.id);
     if (!deletedProperty) {
