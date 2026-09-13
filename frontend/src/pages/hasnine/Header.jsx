@@ -66,7 +66,7 @@ function Header() {
                 <Link className="btn-login" to="/login">
                   Login
                 </Link>
-                <Link className="btn-signup" to="/register">
+                <Link className="btn-signup" to="/get-started">
                   Register
                 </Link>
               </>
