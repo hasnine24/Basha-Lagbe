@@ -6,31 +6,32 @@
   justify-content: center;
   align-items: center;
 
-  padding: 60px 20px;
+  padding: 56px 20px 76px;
 
   background: #f8fafc;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 430px;
+  max-width: 500px;
 
-  padding: 36px;
+  padding: 38px 40px;
 
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border: 1px solid #dbe4ee;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgb(17 35 63 / 6%);
 }
 
 .auth-card h1 {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: #11233f;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 600;
 }
 
 .auth-subtitle {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   color: #64748b;
   font-size: 14px;
 }
@@ -41,7 +42,7 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
   color: #11233f;
   font-size: 14px;
   font-weight: 500;
@@ -49,9 +50,9 @@
 
 .form-group input {
   width: 100%;
-  padding: 12px 14px;
+  padding: 13px 14px;
 
-  border: 1px solid #d1d5db;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
   outline: none;
 
@@ -61,12 +62,13 @@
 
 .form-group input:focus {
   border-color: #1a8eff;
+  box-shadow: 0 0 0 3px rgb(26 142 255 / 12%);
 }
 
 .auth-button {
   width: 100%;
-  margin-top: 8px;
-  padding: 12px;
+  margin-top: 10px;
+  padding: 13px;
 
   border: none;
   border-radius: 8px;
@@ -79,10 +81,12 @@
   font-weight: 600;
 
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .auth-button:hover {
   background: #167be3;
+  transform: translateY(-1px);
 }
 
 .auth-button:disabled {
@@ -112,4 +116,57 @@
 .auth-switch a {
   color: #1a8eff;
   font-weight: 600;
+}
+
+.auth-footer {
+  padding: 18px 20px 22px;
+  background: #f8fafc;
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+}
+
+.register-role-indicator {
+  margin: 0 0 28px;
+  padding: 12px 14px;
+  border: 1px solid #dbeafe;
+  border-left: 3px solid #1a8eff;
+  border-radius: 8px;
+  background: #f8fbff;
+}
+
+.register-role-indicator > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.register-role-indicator strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #142a4a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.register-role-indicator svg {
+  width: 20px;
+  height: 20px;
+  color: #1a8eff;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+@media (max-width: 600px) {
+  .auth-page {
+    padding: 46px 20px 60px;
+  }
+
+  .auth-card {
+    padding: 32px 24px;
+  }
 }
