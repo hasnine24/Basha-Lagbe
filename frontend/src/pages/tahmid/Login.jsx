@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Header from "../hasnine/Header";
-import Footer from "../hasnine/Footer";
 import { useAuthContext } from "../../contexts/AuthContext";
 import "./Login.css";
 
@@ -72,12 +71,12 @@ function Login() {
 
           <p className="auth-switch">
             Don't have an account?{" "}
-            <Link to="/register">Register</Link>
+            <Link to="/get-started">Get Started</Link>
           </p>
         </div>
       </main>
 
-      <Footer />
+      <footer className="auth-footer">© 2026 Basha Lagbe. All rights reserved.</footer>
     </>
   );
 }
