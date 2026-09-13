@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/tahmid/Home";
 import Login from "./pages/tahmid/Login";
 import Register from "./pages/tahmid/Register";
+import GetStarted from "./pages/tahmid/GetStarted";
 
 import Properties from "./pages/tahmid/Properties";
 
@@ -34,6 +35,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/get-started" element={<GetStarted />} />
 
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<Login />} />
@@ -42,12 +44,14 @@ function App() {
 
         <Route path="/properties" element={<Properties />} />
         <Route path="/properties/:id" element={<ProductPage />} />
-        <Route path="/add-property" element={<AddPropertyPage />} />
-        <Route path="/edit-property" element={<EditPropertyPage />} />
-        <Route path="/edit-property/:id" element={<WaseqEditPropertyPage />} />
-        
-        <Route path="/my-properties" element={<MyProperties />} />
-        <Route path="/requests" element={<RequestPage />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/add-property" element={<AddPropertyPage />} />
+          <Route path="/edit-property" element={<EditPropertyPage />} />
+          <Route path="/edit-property/:id" element={<WaseqEditPropertyPage />} />
+          <Route path="/my-properties" element={<MyProperties />} />
+          <Route path="/requests" element={<RequestPage />} />
+        </Route>
       </Routes>
     </>
   );
