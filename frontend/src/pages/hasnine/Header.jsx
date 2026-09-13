@@ -3,19 +3,13 @@ import { Link, NavLink } from "react-router-dom";
 import bashaLagbeLogo from "../../assets/basha_lagbe.png";
 import { useAuthContext } from "../../contexts/AuthContext";
 import FloatingSearch from "./FloatingSearch";
+import ProfileSidebar from "../waseq/ProfileSidebar";
 import "./Header.css";
 
 function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { user, logout } = useAuthContext();
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch {
-      // The user can retry logout; their current session remains unchanged.
-    }
-  };
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { user } = useAuthContext();
 
   return (
     <>
@@ -42,14 +36,6 @@ function Header() {
               Properties
             </NavLink>
 
-            <NavLink to="/add-property">
-              Add Property
-            </NavLink>
-
-            <NavLink to="/edit-property">
-              Edit Property
-            </NavLink>
-
             <a
               href="#"
               onClick={(event) => {
@@ -63,14 +49,18 @@ function Header() {
 
           <div className="header-auth">
             {user ? (
-              <>
-                <Link className="btn-login" to="/profile">
-                  Profile
-                </Link>
-                <button type="button" className="btn-signup" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
+              <button 
+                type="button" 
+                className="header-profile-icon-btn" 
+                onClick={() => setIsProfileOpen(true)}
+                aria-label="Profile"
+                title="Profile"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </button>
             ) : (
               <>
                 <Link className="btn-login" to="/login">
@@ -88,6 +78,11 @@ function Header() {
       <FloatingSearch
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
+      />
+
+      <ProfileSidebar
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
       />
     </>
   );

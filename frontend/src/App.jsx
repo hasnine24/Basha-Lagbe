@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./pages/tahmid/Home";
 import Login from "./pages/tahmid/Login";
 import Register from "./pages/tahmid/Register";
-import Profile from "./pages/tahmid/Profile";
+
 import Properties from "./pages/tahmid/Properties";
 
 import ProductPage from "./pages/hasnine/product_page";
@@ -12,6 +12,10 @@ import AddPropertyPage from "./pages/hasnine/add_property_page";
 import EditPropertyPage from "./pages/hasnine/edit_property_page";
 import PrivateRoute from "./utils/PrivateRoute";
 import PublicRoute from "./utils/PublicRoute";
+
+import MyProperties from "./pages/waseq/MyProperties";
+import RequestPage from "./pages/waseq/RequestPage";
+import WaseqEditPropertyPage from "./pages/waseq/EditPropertyPage";
 
 function App() {
   return (
@@ -23,15 +27,16 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Route>
 
-      <Route element={<PrivateRoute />}>
-        <Route path="/profile" element={<Profile />} />
-      </Route>
+
 
       <Route path="/properties" element={<Properties />} />
       <Route path="/properties/:id" element={<ProductPage />} />
       <Route path="/add-property" element={<AddPropertyPage />} />
       <Route path="/edit-property" element={<EditPropertyPage />} />
-      <Route path="/edit-property/:id" element={<EditPropertyPage />} />
+      <Route path="/edit-property/:id" element={<WaseqEditPropertyPage />} />
+      
+      <Route path="/my-properties" element={<MyProperties />} />
+      <Route path="/requests" element={<RequestPage />} />
     </Routes>
   );
 }
