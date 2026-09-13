@@ -3,10 +3,14 @@ import { hashPassword } from "../utils/helpers.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
+    const { name, email, phone, password, role } = req.body;
 
     if (!name || !email || !phone || !password) {
       return res.status(400).json({ error: "All fields are required" });
+    }
+
+    if (!["seeker", "advertiser"].includes(role)) {
+      return res.status(400).json({ error: "A valid role is required" });
     }
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -22,6 +26,7 @@ export const createUser = async (req, res) => {
       email: normalizedEmail,
       phone,
       password: hashedPassword,
+      role,
     });
 
     return res.status(201).json({ message: "New user added successfully" });

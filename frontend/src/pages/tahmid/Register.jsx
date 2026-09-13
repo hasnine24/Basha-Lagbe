@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../hasnine/Header";
-import Footer from "../hasnine/Footer";
 import axiosInstance from "../../utils/axiosInstance";
 import "./Register.css";
 
@@ -16,6 +15,14 @@ function Register() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const selectedRole = location.state?.role;
+
+  useEffect(() => {
+    if (!location.state?.role) {
+      navigate("/get-started", { replace: true });
+    }
+  }, [location.state, navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -31,6 +38,11 @@ function Register() {
       return;
     }
 
+    if (!["seeker", "advertiser"].includes(selectedRole)) {
+      setError("Please select how you would like to get started.");
+      return;
+    }
+
     setSubmitting(true);
     try {
       await axiosInstance.post("/users", {
@@ -38,6 +50,7 @@ function Register() {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
+        role: selectedRole,
       });
       navigate("/login", { state: { message: "Account created. Please log in." } });
     } catch (requestError) {
@@ -55,8 +68,34 @@ function Register() {
         <div className="auth-card">
           <h1>Create an Account</h1>
           <p className="auth-subtitle">
-            Join Basha Lagbe and find your next home.
+            Join Basha Lagbe and get started.
           </p>
+
+          <div className="register-role-indicator">
+            <span>You're joining as</span>
+            <strong>
+              {selectedRole === "seeker" ? (
+                <>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m3 10 9-7 9 7" />
+                    <path d="M5 9.5V21h14V9.5" />
+                    <path d="M9 21v-6h6v6" />
+                  </svg>
+                  Home Seeker
+                </>
+              ) : (
+                <>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 21h16" />
+                    <path d="M6 21V4h12v17" />
+                    <path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1" />
+                    <path d="M10 21v-3h4v3" />
+                  </svg>
+                  Property Advertiser
+                </>
+              )}
+            </strong>
+          </div>
 
           <form onSubmit={handleSubmit}>
             {error && <p className="auth-message auth-message-error" role="alert">{error}</p>}
@@ -137,7 +176,7 @@ function Register() {
         </div>
       </main>
 
-      <Footer />
+      <footer className="auth-footer">© 2026 Basha Lagbe. All rights reserved.</footer>
     </>
   );
 }
