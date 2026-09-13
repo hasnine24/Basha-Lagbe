@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "../hasnine/Header";
 import Hero from "./Hero";
 import FeaturedProperties from "./FeaturedProperties";
@@ -15,15 +16,13 @@ function Home() {
         <FeaturedProperties />
         <WhyBashaLagbe />
         <section className="home-cta">
-    <div>
-      <h2>Ready to find your next home?</h2>
-      <p>
-        Explore available properties and find the right one for you.
-      </p>
-    </div>
+          <div>
+            <h2>Ready to Find a Home or List Your Property?</h2>
+            <p>Get started with Basha Lagbe today.</p>
+          </div>
 
-    <a href="/properties">Explore Properties</a>
-  </section>
+          <Link to="/get-started">Get Started →</Link>
+        </section>
       </main>
 
       <Footer />
