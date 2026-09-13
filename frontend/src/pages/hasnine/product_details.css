@@ -1,6 +1,4 @@
-/* =========================
-   BASIC
-========================= */
+
 * {
     box-sizing: border-box;
 }
@@ -16,9 +14,7 @@ a {
     text-decoration: none;
 }
 
-/* =========================
-   MAIN
-========================= */
+
 .layout {
     padding-top: 120px;
     display: flex;
@@ -32,9 +28,7 @@ a {
     margin: auto;
 }
 
-/* =========================
-   PROPERTY INTRO
-========================= */
+
 .property-intro-modern {
     display: flex;
     justify-content: space-between;
@@ -95,9 +89,7 @@ a {
     color: #777;
 }
 
-/* =========================
-   GALLERY
-========================= */
+
 .gallery {
     height: 450px;
     display: grid;
@@ -131,9 +123,7 @@ a {
     grid-column: 2 / 4;
 }
 
-/* =========================
-   LIGHTBOX
-========================= */
+
 .image-lightbox {
     position: fixed;
     top: 0;
@@ -199,9 +189,7 @@ a {
 }
 
 
-/* =========================
-   DETAILS (Description)
-========================= */
+
 .description-section {
     background-color: white;
     padding: 35px;
@@ -237,9 +225,7 @@ a {
     font-weight: bold;
 }
 
-/* =========================
-   CONTACT BUTTONS
-========================= */
+
 .contact-button {
     padding: 12px 20px;
     border-radius: 5px;
@@ -261,9 +247,7 @@ a {
     background-color: #1a8eff;
 }
 
-/* =========================
-   CONTACT SECTION
-========================= */
+
 .contact-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -335,9 +319,7 @@ a {
     background-color: #1a8eff;
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN
-===================================================== */
+
 @media (max-width: 768px) {
     .property-intro-modern {
         flex-direction: column;

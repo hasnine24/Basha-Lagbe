@@ -46,7 +46,6 @@ export default function EditPropertyPage() {
 
         if (!active) return;
 
-        // Verify ownership on frontend
         const currentUserId = user?.id || user?._id;
         const propertyOwnerId = data.owner?._id || data.owner;
 
@@ -217,7 +216,7 @@ export default function EditPropertyPage() {
                 </div>
               )}
               <form onSubmit={handleSubmit}>
-                {/* Basic Details Section */}
+                {}
                 <div className="form-section">
                   <h2>Basic Details</h2>
                   <div className="grid-2">
@@ -293,7 +292,7 @@ export default function EditPropertyPage() {
                   </div>
                 </div>
 
-                {/* Features Section */}
+                {}
                 <div className="form-section">
                   <h2>Features & Amenities</h2>
                   <div className="grid-3">
@@ -370,7 +369,7 @@ export default function EditPropertyPage() {
                   </div>
                 </div>
 
-                {/* Media Section */}
+                {}
                 <div className="form-section">
                   <h2>Media</h2>
                   <label>Upload Property Images</label>

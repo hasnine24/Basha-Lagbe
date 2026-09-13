@@ -24,7 +24,7 @@
   justify-content: space-between;
 }
 
-/* Logo */
+
 
 .header-logo {
   display: flex;
@@ -46,7 +46,7 @@
   letter-spacing: -0.5px;
 }
 
-/* Navigation */
+
 
 .main-nav {
   display: flex;
@@ -72,7 +72,7 @@
   color: #1a8eff;
 }
 
-/* Authentication */
+
 
 .header-auth {
   display: flex;
@@ -114,7 +114,7 @@
   background-color: #167be3;
 }
 
-/* Responsive */
+
 
 @media (max-width: 900px) {
   .main-nav {
