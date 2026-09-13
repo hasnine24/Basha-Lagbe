@@ -61,7 +61,7 @@ export default function AddPropertyPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: "/add-property" } });
       return;
     }
     setLoading(true);
@@ -96,7 +96,7 @@ export default function AddPropertyPage() {
       setImages([]);
     } catch (error) {
       if (error.response?.status === 401) {
-        navigate("/login");
+        navigate("/login", { state: { from: "/add-property" } });
         return;
       }
       console.error(error);

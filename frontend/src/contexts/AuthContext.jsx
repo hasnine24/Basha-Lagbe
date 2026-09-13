@@ -41,10 +41,10 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, redirectTo = "/profile") => {
     const response = await axiosInstance.post("/auth/login", { email, password });
     setUser(response.data);
-    navigate("/profile");
+    navigate(redirectTo);
   };
 
   const logout = async () => {

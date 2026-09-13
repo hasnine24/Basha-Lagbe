@@ -53,6 +53,14 @@ function Profile() {
             >
               My Properties
             </button>
+
+            <button
+              type="button"
+              className="see-requests-button"
+              onClick={() => navigate("/requests")}
+            >
+              See Requests
+            </button>
           </div>
         </div>
       </main>

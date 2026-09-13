@@ -11,6 +11,7 @@ import ProductPage from "./pages/hasnine/product_page";
 import AddPropertyPage from "./pages/hasnine/add_property_page";
 import MyProperties from "./pages/waseq/MyProperties";
 import EditPropertyPage from "./pages/waseq/EditPropertyPage";
+import RequestPage from "./pages/waseq/RequestPage";
 import PrivateRoute from "./utils/PrivateRoute";
 import PublicRoute from "./utils/PublicRoute";
 
@@ -27,6 +28,7 @@ function App() {
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/my-properties" element={<MyProperties />} />
+        <Route path="/requests" element={<RequestPage />} />
         <Route path="/add-property" element={<AddPropertyPage />} />
         <Route path="/edit-property/:id" element={<EditPropertyPage />} />
       </Route>

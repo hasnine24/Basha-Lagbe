@@ -19,7 +19,8 @@ function Login() {
     setSubmitting(true);
 
     try {
-      await login(email, password);
+      const from = location.state?.from?.pathname || location.state?.from || "/profile";
+      await login(email, password, from);
     } catch (requestError) {
       setError(requestError.response?.data?.error || "Login failed. Please try again.");
     } finally {

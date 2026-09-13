@@ -61,7 +61,8 @@
 }
 
 .logout-button,
-.my-properties-button {
+.my-properties-button,
+.see-requests-button {
   padding: 11px 22px;
 
   border: none;
@@ -79,6 +80,7 @@
 }
 
 .logout-button:hover,
-.my-properties-button:hover {
+.my-properties-button:hover,
+.see-requests-button:hover {
   background: #1e3a5f;
 }
