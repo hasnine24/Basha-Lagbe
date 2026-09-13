@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const response = await axiosInstance.post("/auth/login", { email, password });
     setUser(response.data);
-    navigate("/profile");
+    navigate("/");
   };
 
   const logout = async () => {

@@ -1,0 +1,156 @@
+.request-page {
+  max-width: 850px;
+  min-height: calc(100vh - 75px);
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+
+.request-header {
+  margin-bottom: 32px;
+}
+
+.request-header h1 {
+  margin-bottom: 8px;
+  color: #11233f;
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.request-header p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.request-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 24px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.request-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(17, 35, 63, 0.08);
+}
+
+.request-card-top {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.request-property-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #11233f;
+  margin-bottom: 4px;
+}
+
+.request-location {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.request-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.request-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.request-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  min-width: 110px;
+}
+
+.request-value {
+  font-size: 14px;
+  color: #11233f;
+  font-weight: 500;
+}
+
+.request-email {
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.request-email:hover {
+  text-decoration: underline;
+}
+
+.request-message-box {
+  margin-top: 4px;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.request-message-box .request-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.request-message-content {
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.requests-empty {
+  padding: 60px 20px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  margin-top: 20px;
+}
+
+.requests-empty h2 {
+  margin-bottom: 8px;
+  color: #11233f;
+  font-size: 22px;
+}
+
+.requests-empty p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .request-page {
+    padding: 110px 16px 60px;
+  }
+
+  .request-card {
+    padding: 18px;
+  }
+
+  .request-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .request-label {
+    min-width: auto;
+  }
+}

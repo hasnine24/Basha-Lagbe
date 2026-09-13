@@ -140,3 +140,22 @@
     font-size: 14px;
   }
 }
+
+.header-profile-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #11233f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.header-profile-icon-btn:hover {
+  background-color: #f1f5f9;
+  color: #1a8eff;
+}
+

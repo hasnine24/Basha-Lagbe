@@ -1,0 +1,203 @@
+.my-properties-page {
+  max-width: 1200px;
+  min-height: calc(100vh - 75px);
+  margin: 0 auto;
+  padding: 120px 40px 80px;
+}
+
+.my-properties-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.my-properties-header h1 {
+  margin-bottom: 8px;
+  color: #11233f;
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.my-properties-header p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.my-properties-add-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #11233f;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.my-properties-add-btn:hover {
+  background: #1e3a5f;
+}
+
+.my-properties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.my-properties-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-properties-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(17, 35, 63, 0.08);
+}
+
+.my-properties-image {
+  height: 220px;
+  background: #f1f5f9;
+}
+
+.my-properties-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.my-properties-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.my-properties-info h2 {
+  margin-bottom: 6px;
+  color: #11233f;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.my-properties-price {
+  margin-bottom: 8px;
+  color: #11233f;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.my-properties-price span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.my-properties-location {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.my-properties-meta {
+  display: flex;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.my-properties-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.my-properties-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #f8fafc;
+  color: #11233f;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.my-properties-edit-btn:hover {
+  background: #11233f;
+  color: #ffffff;
+  border-color: #11233f;
+}
+
+.edit-pen-icon {
+  font-size: 14px;
+}
+
+.my-properties-empty,
+.my-properties-loading,
+.my-properties-error {
+  padding: 20px 0;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.my-properties-empty h2 {
+  margin-bottom: 8px;
+  color: #11233f;
+  font-size: 22px;
+}
+
+.my-properties-empty p,
+.my-properties-loading p,
+.my-properties-error p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.my-properties-error p {
+  color: #e53e3e;
+}
+
+@media (max-width: 900px) {
+  .my-properties-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .my-properties-page {
+    padding: 110px 20px 60px;
+  }
+
+  .my-properties-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .my-properties-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

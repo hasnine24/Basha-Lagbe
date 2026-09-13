@@ -6,7 +6,7 @@ function PublicRoute() {
 
   if (loading) return null;
 
-  return user ? <Navigate replace to="/profile" /> : <Outlet />;
+  return user ? <Navigate replace to="/" /> : <Outlet />;
 }
 
 export default PublicRoute;
