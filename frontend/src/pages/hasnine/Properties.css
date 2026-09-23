@@ -1,12 +1,23 @@
 .properties-page {
+  width: 100%;
+  box-sizing: border-box;
   max-width: 1200px;
   min-height: calc(100vh - 75px);
   margin: 0 auto;
   padding: 120px 40px 80px;
 }
 
-.properties-heading {
+.properties-heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
   margin-bottom: 32px;
+}
+
+.properties-heading {
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .properties-heading h1 {
@@ -23,6 +34,32 @@
 .properties-empty p {
   color: #64748b;
   font-size: 14px;
+}
+
+.properties-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.sort-select {
+  padding: 10px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-family: inherit;
+  color: #334155;
+  background-color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  font-size: 14px;
+  min-width: 180px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sort-select:focus, .sort-select:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .properties-grid {
@@ -47,6 +84,21 @@
 
 .properties-image {
   height: 220px;
+  position: relative;
+}
+
+.booked-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .properties-image img {
@@ -102,6 +154,41 @@
   font-size: 22px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.pagination-btn {
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  background-color: #fff;
+  color: #11233f;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.pagination-btn.active {
+  background-color: #11233f;
+  color: #fff;
+  border-color: #11233f;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 900px) {
   .properties-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -111,6 +198,21 @@
 @media (max-width: 600px) {
   .properties-page {
     padding: 110px 20px 60px;
+  }
+
+  .properties-heading-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .properties-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sort-select {
+    width: 100%;
   }
 
   .properties-grid {

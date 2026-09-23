@@ -17,6 +17,8 @@ const propertySchema = new Schema(
       serviceCharge: { type: Boolean, default: false },
     },
     images: [{ type: String }],
+    isBooked: { type: Boolean, default: false },
+    category: { type: String },
   },
   { timestamps: true }
 );

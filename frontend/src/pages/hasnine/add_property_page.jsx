@@ -9,6 +9,7 @@ export default function AddPropertyPage() {
   const [formData, setFormData] = useState({
     title: "",
     type: "",
+    category: "",
     price: "",
     area: "",
     address: "",
@@ -30,6 +31,13 @@ export default function AddPropertyPage() {
     setFormData((prev) => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const setCategory = (cat) => {
+    setFormData((prev) => ({
+      ...prev,
+      category: cat
     }));
   };
 
@@ -61,7 +69,12 @@ export default function AddPropertyPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    if (!formData.category) {
+      setMessage("Please select a category.");
+      return;
+    }
+    
     setLoading(true);   
     setMessage("");
 
@@ -92,6 +105,7 @@ export default function AddPropertyPage() {
       const payload = {
         title: formData.title,
         type: formData.type,
+        category: formData.category,
         price: Number(formData.price),
         area: Number(formData.area),
         address: formData.address,
@@ -108,7 +122,7 @@ export default function AddPropertyPage() {
       console.log(res.data);
       
       setFormData({
-        title: "", type: "", price: "", area: "", address: "", description: "",
+        title: "", type: "", category: "", price: "", area: "", address: "", description: "",
         bedrooms: "", bathrooms: "", balconies: "",
         includes: { gas: false, water: false, serviceCharge: false }
       });
@@ -130,7 +144,34 @@ export default function AddPropertyPage() {
           {message && <div style={{ padding: '10px', marginBottom: '15px', backgroundColor: message.includes('success') ? '#d4edda' : '#f8d7da', color: message.includes('success') ? '#155724' : '#721c24', borderRadius: '4px' }}>{message}</div>}
           <form onSubmit={handleSubmit}>
             
-            {}
+            <div className="form-section category-section" style={{ marginBottom: '24px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
+                Category
+              </label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {["Family", "Bachelor", "Office", "Sublet", "Hostel", "Shop"].map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setCategory(cat)}
+                    style={{
+                      padding: '8px 20px',
+                      borderRadius: '20px',
+                      border: formData.category === cat ? '1px solid #2563eb' : '1px solid #cbd5e1',
+                      backgroundColor: formData.category === cat ? '#2563eb' : '#fff',
+                      color: formData.category === cat ? '#fff' : '#475569',
+                      fontSize: '15px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      fontWeight: formData.category === cat ? 500 : 400
+                    }}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="form-section">
               <h2>Basic Details</h2>
               <div className="grid-2">

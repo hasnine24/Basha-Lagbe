@@ -41,10 +41,13 @@ function FloatingSearch({ isOpen, onClose }) {
   const handleSearch = () => {
     onClose();
 
-    const trimmedLocation = location.trim();
+    const queryParams = new URLSearchParams();
+    if (location.trim()) queryParams.set("location", location.trim());
+    if (selectedCategory) queryParams.set("category", selectedCategory);
+    
     navigate(
-      trimmedLocation
-        ? `/properties?location=${encodeURIComponent(trimmedLocation)}`
+      queryParams.toString()
+        ? `/properties?${queryParams.toString()}`
         : "/properties"
     );
   };
@@ -76,32 +79,6 @@ function FloatingSearch({ isOpen, onClose }) {
             onChange={(event) => setLocation(event.target.value)}
           />
 
-          <div className="fs-input-group mb-3">
-            <input
-              type="text"
-              className="fs-input"
-              placeholder="Property ID.."
-            />
-
-            <button className="fs-icon-btn" type="button">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </svg>
-            </button>
-          </div>
-
-          <div className="fs-divider">
-            <span>OR</span>
-          </div>
-
           <div className="fs-section">
             <label>Category</label>
 
@@ -120,46 +97,12 @@ function FloatingSearch({ isOpen, onClose }) {
                   className={`fs-pill ${
                     selectedCategory === cat ? "active" : ""
                   }`}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => setSelectedCategory(selectedCategory === cat ? "" : cat)}
                 >
                   {cat}
                 </button>
               ))}
             </div>
-          </div>
-
-          <div className="fs-row">
-            <div className="fs-col">
-              <label>Division</label>
-
-              <select className="fs-select">
-                <option>Select division</option>
-                <option>Dhaka</option>
-                <option>Chattogram</option>
-              </select>
-            </div>
-
-            <div className="fs-col">
-              <label>District</label>
-
-              <select
-                className="fs-select"
-                disabled
-              >
-                <option>Select division first</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="fs-section">
-            <label>Area / Thana :</label>
-
-            <select
-              className="fs-select"
-              disabled
-            >
-              <option>Select division first</option>
-            </select>
           </div>
         </div>
 

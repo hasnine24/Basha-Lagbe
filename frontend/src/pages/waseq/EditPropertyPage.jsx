@@ -15,6 +15,7 @@ export default function EditPropertyPage() {
   const [formData, setFormData] = useState({
     title: "",
     type: "",
+    category: "",
     price: "",
     area: "",
     address: "",
@@ -61,6 +62,7 @@ export default function EditPropertyPage() {
         setFormData({
           title: data.title || "",
           type: data.type || "",
+          category: data.category || "",
           price: data.price !== undefined ? String(data.price) : "",
           area: data.area !== undefined ? String(data.area) : "",
           address: data.address || "",
@@ -104,6 +106,13 @@ export default function EditPropertyPage() {
     }));
   };
 
+  const setCategory = (cat) => {
+    setFormData((prev) => ({
+      ...prev,
+      category: cat,
+    }));
+  };
+
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData((prev) => ({
@@ -131,6 +140,11 @@ export default function EditPropertyPage() {
       navigate("/login");
       return;
     }
+    
+    if (!formData.category) {
+      setMessage("Please select a category.");
+      return;
+    }
 
     setSubmitting(true);
     setMessage("");
@@ -139,6 +153,7 @@ export default function EditPropertyPage() {
       const payload = {
         title: formData.title,
         type: formData.type,
+        category: formData.category,
         price: Number(formData.price),
         area: Number(formData.area),
         address: formData.address,
@@ -216,7 +231,33 @@ export default function EditPropertyPage() {
                 </div>
               )}
               <form onSubmit={handleSubmit}>
-                {}
+                <div className="form-section category-section" style={{ marginBottom: '24px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
+                    Category
+                  </label>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    {["Family", "Bachelor", "Office", "Sublet", "Hostel", "Shop"].map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => setCategory(cat)}
+                        style={{
+                          padding: '8px 20px',
+                          borderRadius: '20px',
+                          border: formData.category === cat ? '1px solid #2563eb' : '1px solid #cbd5e1',
+                          backgroundColor: formData.category === cat ? '#2563eb' : '#fff',
+                          color: formData.category === cat ? '#fff' : '#475569',
+                          fontSize: '15px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          fontWeight: formData.category === cat ? 500 : 400
+                        }}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <div className="form-section">
                   <h2>Basic Details</h2>
                   <div className="grid-2">

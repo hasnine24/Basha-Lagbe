@@ -7,7 +7,7 @@ import Login from "./pages/tahmid/Login";
 import Register from "./pages/tahmid/Register";
 import GetStarted from "./pages/tahmid/GetStarted";
 
-import Properties from "./pages/tahmid/Properties";
+import Properties from "./pages/hasnine/Properties";
 
 import ProductPage from "./pages/hasnine/product_page";
 import AddPropertyPage from "./pages/hasnine/add_property_page";
