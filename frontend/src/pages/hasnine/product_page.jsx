@@ -82,6 +82,9 @@ function ProductPage() {
           <div className="intro-main">
             <h1 className="intro-title">{property.title}</h1>
             <div className="intro-tags">
+              {property.isBooked && (
+                <span className="tag" style={{ backgroundColor: '#dc2626', color: '#fff', border: 'none' }}>Booked</span>
+              )}
               <span className="tag purpose-tag">For Rent (To-Let)</span>
               <span className="tag type-tag">Residential</span>
             </div>

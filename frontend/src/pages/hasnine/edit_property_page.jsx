@@ -17,6 +17,7 @@ export default function EditPropertyPage() {
   const [formData, setFormData] = useState({
     title: "", type: "", category: "", price: "", area: "", address: "", description: "",
     bedrooms: "", bathrooms: "", balconies: "",
+    isBooked: false,
     includes: { gas: false, water: false, serviceCharge: false }
   });
   
@@ -59,6 +60,7 @@ export default function EditPropertyPage() {
           bedrooms: data.bedrooms || "",
           bathrooms: data.bathrooms || "",
           balconies: data.balconies || "",
+          isBooked: data.isBooked || false,
           includes: {
             gas: data.includes?.gas || false,
             water: data.includes?.water || false,
@@ -115,6 +117,7 @@ export default function EditPropertyPage() {
         bedrooms: Number(formData.bedrooms),
         bathrooms: Number(formData.bathrooms),
         balconies: Number(formData.balconies),
+        isBooked: formData.isBooked,
         includes: formData.includes,
         images: [] 
       };
@@ -272,6 +275,22 @@ export default function EditPropertyPage() {
                   <div><label>Bedrooms</label><input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleInputChange} required /></div>
                   <div><label>Bathrooms</label><input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleInputChange} required /></div>
                   <div><label>Balconies</label><input type="number" name="balconies" value={formData.balconies} onChange={handleInputChange} required /></div>
+                </div>
+                
+                <div className="price-includes" style={{ marginTop: '20px', padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <h3 style={{ marginTop: 0, color: '#334155', fontSize: '15px' }}>Booking Status</h3>
+                  <div className="switch-row">
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 600, color: formData.isBooked ? '#dc2626' : '#16a34a' }}>
+                      <input 
+                        type="checkbox" 
+                        name="isBooked" 
+                        checked={formData.isBooked} 
+                        onChange={(e) => setFormData(prev => ({ ...prev, isBooked: e.target.checked }))} 
+                        style={{ width: '18px', height: '18px' }}
+                      /> 
+                      {formData.isBooked ? "Currently Booked" : "Available"}
+                    </label>
+                  </div>
                 </div>
                 
                 <div className="price-includes">

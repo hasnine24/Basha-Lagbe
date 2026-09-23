@@ -23,6 +23,7 @@ export default function EditPropertyPage() {
     bedrooms: "",
     bathrooms: "",
     balconies: "",
+    isBooked: false,
     includes: {
       gas: false,
       water: false,
@@ -70,6 +71,7 @@ export default function EditPropertyPage() {
           bedrooms: data.bedrooms !== undefined ? String(data.bedrooms) : "",
           bathrooms: data.bathrooms !== undefined ? String(data.bathrooms) : "",
           balconies: data.balconies !== undefined ? String(data.balconies) : "",
+          isBooked: data.isBooked || false,
           includes: {
             gas: Boolean(data.includes?.gas),
             water: Boolean(data.includes?.water),
@@ -161,6 +163,7 @@ export default function EditPropertyPage() {
         bedrooms: Number(formData.bedrooms),
         bathrooms: Number(formData.bathrooms),
         balconies: Number(formData.balconies),
+        isBooked: formData.isBooked,
         includes: formData.includes,
         images: images,
       };
@@ -369,6 +372,22 @@ export default function EditPropertyPage() {
                         placeholder="0"
                         required
                       />
+                    </div>
+                  </div>
+
+                  <div className="price-includes" style={{ marginTop: '20px', padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <h3 style={{ marginTop: 0, color: '#334155', fontSize: '15px' }}>Booking Status</h3>
+                    <div className="switch-row">
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 600, color: formData.isBooked ? '#dc2626' : '#16a34a' }}>
+                        <input 
+                          type="checkbox" 
+                          name="isBooked" 
+                          checked={formData.isBooked} 
+                          onChange={(e) => setFormData(prev => ({ ...prev, isBooked: e.target.checked }))} 
+                          style={{ width: '18px', height: '18px' }}
+                        /> 
+                        {formData.isBooked ? "Currently Booked" : "Available"}
+                      </label>
                     </div>
                   </div>
 
