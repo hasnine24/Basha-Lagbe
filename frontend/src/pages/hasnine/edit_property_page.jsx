@@ -5,10 +5,12 @@ import "./Properties.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import axiosInstance from "../../utils/axiosInstance";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function EditPropertyPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const [properties, setProperties] = useState([]);
   const [selectedId, setSelectedId] = useState(id || "");
   
@@ -28,7 +30,7 @@ export default function EditPropertyPage() {
   useEffect(() => {
     const fetchAll = async () => {
       try {
-        const res = await axiosInstance.get("/properties");
+        const res = await axiosInstance.get("/properties/my-properties");
         setProperties(res.data);
       } catch (err) {
         console.error("Failed to fetch properties list", err);
@@ -37,18 +39,29 @@ export default function EditPropertyPage() {
     if (!id) fetchAll(); 
   }, [id]);
 
-  
-  
+  useEffect(() => {
+    setSelectedId(id || "");
+  }, [id]);
   useEffect(() => {
     const fetchProperty = async () => {
       if (!selectedId) return; 
       setFetching(true);       
       try {
-        
         const res = await axiosInstance.get(`/properties/${selectedId}`);
         const data = res.data;
         
-        
+        const currentUserId = user?.id || user?._id;
+        const propertyOwnerId = data.advertiser?._id || data.advertiser;
+
+        if (
+          !propertyOwnerId ||
+          !currentUserId ||
+          propertyOwnerId.toString() !== currentUserId.toString()
+        ) {
+          setMessage("You are not authorized to edit this property.");
+          return;
+        }
+
         setFormData({
           title: data.title || "",
           type: data.type || "",

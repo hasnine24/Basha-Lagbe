@@ -18,7 +18,6 @@ import PublicRoute from "./utils/PublicRoute";
 
 import MyProperties from "./pages/waseq/MyProperties";
 import RequestPage from "./pages/waseq/RequestPage";
-import WaseqEditPropertyPage from "./pages/waseq/EditPropertyPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -53,7 +52,7 @@ function App() {
         <Route element={<RoleRoute allowedRoles={["advertiser"]} />}>
           <Route path="/add-property" element={<AddPropertyPage />} />
           <Route path="/edit-property" element={<EditPropertyPage />} />
-          <Route path="/edit-property/:id" element={<WaseqEditPropertyPage />} />
+          <Route path="/edit-property/:id" element={<EditPropertyPage />} />
           <Route path="/my-properties" element={<MyProperties />} />
         </Route>
       </Routes>

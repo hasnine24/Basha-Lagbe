@@ -5,7 +5,7 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
     color: #11233f;
 }
@@ -62,6 +62,7 @@ a {
 .intro-title {
     margin: 0;
     font-size: 40px;
+    font-weight: 600;
 }
 
 .intro-address {
@@ -222,7 +223,7 @@ a {
 }
 
 .detail-value {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 

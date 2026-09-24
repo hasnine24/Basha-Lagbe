@@ -99,21 +99,7 @@ function MyProperties() {
                       <span>{property.area || 0} sq ft</span>
                     </div>
 
-                    <div className="my-properties-footer">
-                      <button
-                        type="button"
-                        className="my-properties-edit-btn"
-                        title="Edit Property"
-                        aria-label={`Edit ${property.title}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/edit-property/${property._id}`);
-                        }}
-                      >
-                        <span className="edit-pen-icon">✎</span>
-                        <span className="edit-text">Edit</span>
-                      </button>
-                    </div>
+
                   </div>
                 </div>
               );

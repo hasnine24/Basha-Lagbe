@@ -4,10 +4,11 @@ import axiosInstance from "../../utils/axiosInstance";
 import "./product_details.css";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 function ProductPage() {
   const { id } = useParams(); 
-  
+  const { user } = useAuthContext();
   
   const [property, setProperty] = useState(null);       
   const [loading, setLoading] = useState(true);         
@@ -72,7 +73,6 @@ function ProductPage() {
     ["Service Charge", property.includes?.serviceCharge ? "Yes" : "No"],
     ["Description", property.description],
   ];
-
   return (
     <div className="layout" id="top">
       <Header />
@@ -85,8 +85,7 @@ function ProductPage() {
               {property.isBooked && (
                 <span className="tag" style={{ backgroundColor: '#dc2626', color: '#fff', border: 'none' }}>Booked</span>
               )}
-              <span className="tag purpose-tag">For Rent (To-Let)</span>
-              <span className="tag type-tag">Residential</span>
+              <span className="tag purpose-tag">{property.category || property.type || "Property"}</span>
             </div>
             <p className="intro-address">
               📍
@@ -125,58 +124,68 @@ function ProductPage() {
             ))}
           </div>
         </section>
-        <section className="contact-section" id="contact">
-          <div className="contact-content">
-            <h3 className="section-title-rents">Schedule a Tour</h3>
-            <p className="rents-footer-text">
-              Want to visit this property for rent? Just WhatsApp us this
-              property link or fill out the form to share your convenient
-              viewing schedule.
-            </p>
-            <div className="contact-actions">
-              <a href="  " className="contact-button whatsapp">
-                <span className="icon">💬</span> WhatsApp Us
-              </a>
-              <a href="  " className="contact-button phone">
-                <span className="icon">📞</span> +8801234567891
-              </a>
+        {user?.role === 'seeker' && (
+          <section className="contact-section" id="contact">
+            <div className="contact-content">
+              <h3 className="section-title-rents">Schedule a Tour</h3>
+              <p className="rents-footer-text">
+                Want to visit this property for rent? Just WhatsApp us this
+                property link or fill out the form to share your convenient
+                viewing schedule.
+              </p>
+              <div className="contact-actions">
+                <a 
+                  href={`https://wa.me/${property.advertiser?.phone?.replace(/[^0-9]/g, '') || '8801234567891'}`} 
+                  className="contact-button whatsapp" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <span className="icon">💬</span> WhatsApp Us
+                </a>
+                <a 
+                  href={`tel:${property.advertiser?.phone || '+8801234567891'}`} 
+                  className="contact-button phone"
+                >
+                  <span className="icon">📞</span> {property.advertiser?.phone || '+8801234567891'}
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="contact-form-box">
-            <h4>Request Details</h4>
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
-              <div className="form-group">
-                <label htmlFor="name">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="message">Message (Optional)</label>
-                <textarea
-                  id="message"
-                  rows="3"
-                  placeholder="Hello, I am interested in..."
-                ></textarea>
-              </div>
-              <button type="submit" className="submit-button">
-                Send Request
-              </button>
-            </form>
-          </div>
-        </section>
+            <div className="contact-form-box">
+              <h4>Request Details</h4>
+              <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+                <div className="form-group">
+                  <label htmlFor="name">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="message">Message (Optional)</label>
+                  <textarea
+                    id="message"
+                    rows="3"
+                    placeholder="Hello, I am interested in..."
+                  ></textarea>
+                </div>
+                <button type="submit" className="submit-button">
+                  Send Request
+                </button>
+              </form>
+            </div>
+          </section>
+        )}
       </main>
 
       {selectedIndex !== null && (

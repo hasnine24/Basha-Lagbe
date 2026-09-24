@@ -19,6 +19,7 @@ const propertySchema = new Schema(
     images: [{ type: String }],
     isBooked: { type: Boolean, default: false },
     category: { type: String },
+    advertiser: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
