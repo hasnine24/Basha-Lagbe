@@ -3,6 +3,7 @@ import Property from "../model/Property.js";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import checkToken from "../middlewares/checkToken.js";
+import allowRoles from "../middlewares/allowRoles.js";
 
 const router = express.Router();
 
@@ -19,7 +20,12 @@ cloudinary.config({
 });
 
 
-router.post("/uploadImages", checkToken, upload.array("images", 5), async (req, res) => {
+router.post(
+  "/uploadImages",
+  checkToken,
+  allowRoles("advertiser"),
+  upload.array("images", 5),
+  async (req, res) => {
   try {
     const urls = [];
     
@@ -43,10 +49,11 @@ router.post("/uploadImages", checkToken, upload.array("images", 5), async (req, 
     console.error("Cloudinary upload error:", error);
     res.status(500).json({ message: "Failed to upload images" });
   }
-});
+  }
+);
 
 
-router.post("/", checkToken, async (req, res) => {
+router.post("/", checkToken, allowRoles("advertiser"), async (req, res) => {
   try {
     const newProperty = new Property(req.body);
     const savedProperty = await newProperty.save();
@@ -90,7 +97,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.put("/:id", checkToken, async (req, res) => {
+router.put("/:id", checkToken, allowRoles("advertiser"), async (req, res) => {
   try {
     
     
@@ -118,7 +125,7 @@ router.put("/:id", checkToken, async (req, res) => {
 });
 
 
-router.delete("/:id", checkToken, async (req, res) => {
+router.delete("/:id", checkToken, allowRoles("advertiser"), async (req, res) => {
   try {
     const deletedProperty = await Property.findByIdAndDelete(req.params.id);
     if (!deletedProperty) {
