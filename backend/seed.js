@@ -16,11 +16,13 @@ const seedProperties = async () => {
     "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
     "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
     "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+    "https://images.unsplash.com/photo-1501183638710-841dd1904471"
   ];
 
   const propertiesToInsert = [];
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 50; i++) {
     const title = titles[Math.floor(Math.random() * titles.length)] + " " + (i + 1);
     const type = propertyTypes[Math.floor(Math.random() * propertyTypes.length)];
     const category = categories[Math.floor(Math.random() * categories.length)];
@@ -36,7 +38,8 @@ const seedProperties = async () => {
       water: Math.random() > 0.5,
       serviceCharge: Math.random() > 0.5,
     };
-    const images = [randomImages[Math.floor(Math.random() * randomImages.length)]];
+    const shuffledImages = [...randomImages].sort(() => 0.5 - Math.random());
+    const images = shuffledImages.slice(0, 4);
     const isBooked = Math.random() > 0.7; // 30% chance to be booked
 
     propertiesToInsert.push({

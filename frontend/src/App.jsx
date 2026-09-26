@@ -18,6 +18,7 @@ import PublicRoute from "./utils/PublicRoute";
 
 import MyProperties from "./pages/waseq/MyProperties";
 import RequestPage from "./pages/waseq/RequestPage";
+import CarbonFootprintDisplay from "./components/CarbonFootprintDisplay";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,6 +34,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <CarbonFootprintDisplay />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/get-started" element={<GetStarted />} />
