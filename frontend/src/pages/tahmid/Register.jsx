@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../hasnine/Header";
 import axiosInstance from "../../utils/axiosInstance";
+import { useToast } from "./Toast";
+import { useAuthContext } from "../../contexts/AuthContext";
 import "./Register.css";
 
 function Register() {
@@ -17,6 +19,8 @@ function Register() {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedRole = location.state?.role;
+  const { showError } = useToast();
+  const { login } = useAuthContext();
 
   useEffect(() => {
     if (!location.state?.role) {
@@ -34,16 +38,29 @@ function Register() {
     setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
+      const message = "Passwords do not match.";
+      setError(message);
+      showError(message);
+      return;
+    }
+
+    const passwordPattern = /^.{8,}$/;
+    if (!passwordPattern.test(formData.password)) {
+      const message = "Password must be at least 8 characters.";
+      setError(message);
+      showError(message);
       return;
     }
 
     if (!["seeker", "advertiser"].includes(selectedRole)) {
-      setError("Please select how you would like to get started.");
+      const message = "Please select how you would like to get started.";
+      setError(message);
+      showError(message);
       return;
     }
 
     setSubmitting(true);
+    let accountCreated = false;
     try {
       await axiosInstance.post("/users", {
         name: formData.name,
@@ -52,9 +69,11 @@ function Register() {
         password: formData.password,
         role: selectedRole,
       });
-      navigate("/login", { state: { message: "Account created. Please log in." } });
+      accountCreated = true;
+      await login(formData.email, formData.password);
     } catch (requestError) {
-      setError(requestError.response?.data?.error || "Registration failed. Please try again.");
+      const message = requestError.response?.data?.error || "Registration failed. Please try again.";
+      if (!accountCreated) showError(message);
     } finally {
       setSubmitting(false);
     }
@@ -147,6 +166,7 @@ function Register() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Create a password"
+                minLength="8"
                 required
               />
             </div>
