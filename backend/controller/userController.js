@@ -9,6 +9,11 @@ export const createUser = async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    const passwordPattern = /^.{8,}$/;
+    if (!passwordPattern.test(password)) {
+      return res.status(400).json({ error: "Password must be at least 8 characters" });
+    }
+
     if (!["seeker", "advertiser"].includes(role)) {
       return res.status(400).json({ error: "A valid role is required" });
     }
