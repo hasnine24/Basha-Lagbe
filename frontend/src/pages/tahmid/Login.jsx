@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../hasnine/Header";
 import { useAuthContext } from "../../contexts/AuthContext";
 import "./Login.css";
@@ -7,20 +7,17 @@ import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const { login } = useAuthContext();
-  const location = useLocation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError("");
     setSubmitting(true);
 
     try {
       await login(email, password);
-    } catch (requestError) {
-      setError(requestError.response?.data?.error || "Login failed. Please try again.");
+    } catch {
+      // AuthContext displays the API error in the global toast.
     } finally {
       setSubmitting(false);
     }
@@ -38,8 +35,6 @@ function Login() {
           </p>
 
           <form onSubmit={handleSubmit}>
-            {location.state?.message && <p className="auth-message auth-message-success">{location.state.message}</p>}
-            {error && <p className="auth-message auth-message-error" role="alert">{error}</p>}
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input

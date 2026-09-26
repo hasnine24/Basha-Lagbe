@@ -73,7 +73,6 @@ function Register() {
       await login(formData.email, formData.password);
     } catch (requestError) {
       const message = requestError.response?.data?.error || "Registration failed. Please try again.";
-      setError(message);
       if (!accountCreated) showError(message);
     } finally {
       setSubmitting(false);
