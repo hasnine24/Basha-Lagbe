@@ -15,7 +15,7 @@ function FeaturedProperties() {
       try {
         const res = await axiosInstance.get("/properties");
         
-        setProperties(res.data.slice(0, 3));
+        setProperties(res.data.slice(0, 6));
       } catch (error) {
         console.error("Failed to fetch featured properties:", error);
       } finally {
