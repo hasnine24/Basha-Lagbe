@@ -8,7 +8,7 @@ import userRoutes from "./api/users.js";
 import propertiesRouter from "./api/properties.js";
 import requestsRouter from "./api/requests.js";
 import adminRouter from "./api/admin.js";
-import carbonTracking from "./middleware/carbonTracking.js";
+import carbonTracking from "./middlewares/carbonTracking.js";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
