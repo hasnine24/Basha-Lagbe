@@ -6,6 +6,7 @@ import connectDB from "./server/db.js";
 import authRouter from "./api/auth.js";
 import userRoutes from "./api/users.js";
 import propertiesRouter from "./api/properties.js";
+import requestsRouter from "./api/requests.js";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -22,6 +23,7 @@ app.get("/api", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRouter);
 app.use("/api/properties", propertiesRouter);
+app.use("/api/requests", requestsRouter);
 
 const startServer = async () => {
   await connectDB();

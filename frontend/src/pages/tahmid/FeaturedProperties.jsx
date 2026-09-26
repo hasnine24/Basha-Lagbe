@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import { useAuthContext } from "../../contexts/AuthContext";
 import "./FeaturedProperties.css";
 
 function FeaturedProperties() {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,6 +44,9 @@ function FeaturedProperties() {
             }
           >
             <div className="property-image">
+              {user?.role === "seeker" && (property.isBooked || property.isAccepted) && (
+                <div className="booked-badge">Booked</div>
+              )}
               {property.images && property.images.length > 0 ? (
                 <img src={property.images[0]} alt={property.title} />
               ) : (

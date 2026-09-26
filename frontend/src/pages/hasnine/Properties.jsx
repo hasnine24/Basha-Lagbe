@@ -4,9 +4,11 @@ import axiosInstance from "../../utils/axiosInstance";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Properties.css";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 function Properties() {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const [searchParams] = useSearchParams();
   const locationQuery = searchParams.get("location") || "";
   
@@ -51,8 +53,10 @@ function Properties() {
     else if (priceRange === "above50k") matchesPrice = property.price > 50000;
     
     let matchesBooking = true;
-    if (bookingStatus === "available") matchesBooking = property.isBooked === false;
-    else if (bookingStatus === "booked") matchesBooking = property.isBooked === true;
+    if (user?.role === "seeker") {
+      if (bookingStatus === "available") matchesBooking = !property.isBooked && !property.isAccepted;
+      else if (bookingStatus === "booked") matchesBooking = property.isBooked === true || property.isAccepted === true;
+    }
     
     return matchesLocation && matchesCategory && matchesPrice && matchesBooking;
   });
@@ -139,7 +143,9 @@ function Properties() {
                   }
                 >
                   <div className="properties-image">
-                    {property.isBooked && <div className="booked-badge">Booked</div>}
+                    {user?.role === "seeker" && (property.isBooked || property.isAccepted) && (
+                      <div className="booked-badge">Booked</div>
+                    )}
                     {property.images && property.images.length > 0 ? (
                       <img src={property.images[0]} alt={property.title} />
                     ) : (

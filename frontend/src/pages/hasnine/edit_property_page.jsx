@@ -78,7 +78,8 @@ export default function EditPropertyPage() {
             gas: data.includes?.gas || false,
             water: data.includes?.water || false,
             serviceCharge: data.includes?.serviceCharge || false,
-          }
+          },
+          images: data.images || []
         });
         setMessage("");
       } catch (err) {
@@ -132,7 +133,7 @@ export default function EditPropertyPage() {
         balconies: Number(formData.balconies),
         isBooked: formData.isBooked,
         includes: formData.includes,
-        images: [] 
+        images: formData.images || []
       };
 
       await axiosInstance.put(`/properties/${selectedId}`, payload);

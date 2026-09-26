@@ -111,6 +111,41 @@
   margin-bottom: 14px;
 }
 
+.my-properties-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 14px;
+  margin-top: auto;
+  gap: 10px;
+}
+
+.my-properties-meta-row .my-properties-meta {
+  border-top: none;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+.my-properties-delete-btn {
+  background: transparent;
+  color: #ef4444;
+  border: 1.5px solid #ef4444;
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.my-properties-delete-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
 .my-properties-meta {
   display: flex;
   gap: 14px;

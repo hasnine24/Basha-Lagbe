@@ -88,9 +88,9 @@ export default function AddPropertyPage() {
         }
 
         try {
-          
           const uploadRes = await axiosInstance.post("/properties/uploadImages", uploadData, {
-            headers: { "Content-Type": "multipart/form-data" }
+            headers: { "Content-Type": "multipart/form-data" },
+            timeout: 60000,
           });
           
           if (uploadRes.data.urls) {
@@ -98,6 +98,9 @@ export default function AddPropertyPage() {
           }
         } catch (uploadError) {
           console.error("Failed to upload images to backend", uploadError);
+          setMessage("Failed to upload images: " + (uploadError.response?.data?.message || uploadError.message));
+          setLoading(false);
+          return;
         }
       }
 

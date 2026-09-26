@@ -15,6 +15,54 @@ function ProductPage() {
   const [error, setError] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(null);
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [formFeedback, setFormFeedback] = useState({ type: "", message: "" });
+
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: prev.name || user.name || "",
+        email: prev.email || user.email || "",
+        phone: prev.phone || "",
+      }));
+    }
+  }, [user]);
+
+  const handleSendRequest = async (e) => {
+    e.preventDefault();
+    if (!property?._id) return;
+    setSubmitting(true);
+    setFormFeedback({ type: "", message: "" });
+    try {
+      await axiosInstance.post("/requests", {
+        propertyId: property._id,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      });
+      setFormFeedback({
+        type: "success",
+        message: "Your request has been sent successfully! You can track it on your Requests page.",
+      });
+      setFormData((prev) => ({ ...prev, message: "" }));
+    } catch (err) {
+      setFormFeedback({
+        type: "error",
+        message: err.response?.data?.error || "Failed to send request. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     const fetchProperty = async () => {
       try {
@@ -82,7 +130,7 @@ function ProductPage() {
           <div className="intro-main">
             <h1 className="intro-title">{property.title}</h1>
             <div className="intro-tags">
-              {property.isBooked && (
+              {user?.role === "seeker" && (property.isBooked || property.isAccepted) && (
                 <span className="tag" style={{ backgroundColor: '#dc2626', color: '#fff', border: 'none' }}>Booked</span>
               )}
               <span className="tag purpose-tag">{property.category || property.type || "Property"}</span>
@@ -134,30 +182,62 @@ function ProductPage() {
                 viewing schedule.
               </p>
               <div className="contact-actions">
-                <a 
-                  href={`https://wa.me/${property.advertiser?.phone?.replace(/[^0-9]/g, '') || '8801234567891'}`} 
-                  className="contact-button whatsapp" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <span className="icon">💬</span> WhatsApp Us
-                </a>
-                <a 
-                  href={`tel:${property.advertiser?.phone || '+8801234567891'}`} 
-                  className="contact-button phone"
-                >
-                  <span className="icon">📞</span> {property.advertiser?.phone || '+8801234567891'}
-                </a>
+                {(() => {
+                  const advertiserPhone = property.advertiser?.phone || "";
+                  const rawDigits = advertiserPhone.replace(/[^0-9]/g, "");
+                  const waNumber = rawDigits.startsWith("0")
+                    ? "88" + rawDigits
+                    : rawDigits.startsWith("880")
+                    ? rawDigits
+                    : rawDigits;
+                  const waUrl = waNumber ? `https://wa.me/${waNumber}` : "#";
+
+                  return (
+                    <>
+                      <a 
+                        href={waUrl} 
+                        className="contact-button whatsapp" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <span className="icon">💬</span> WhatsApp Us
+                      </a>
+                      <a 
+                        href={advertiserPhone ? `tel:${advertiserPhone}` : "#"} 
+                        className="contact-button phone"
+                      >
+                        <span className="icon">📞</span> {advertiserPhone || "Not Available"}
+                      </a>
+                    </>
+                  );
+                })()}
               </div>
             </div>
             <div className="contact-form-box">
               <h4>Request Details</h4>
-              <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+              {formFeedback.message && (
+                <div
+                  style={{
+                    padding: "10px 14px",
+                    borderRadius: "6px",
+                    marginBottom: "14px",
+                    fontSize: "14px",
+                    backgroundColor: formFeedback.type === "success" ? "#dcfce7" : "#fee2e2",
+                    color: formFeedback.type === "success" ? "#15803d" : "#b91c1c",
+                    border: `1px solid ${formFeedback.type === "success" ? "#bbf7d0" : "#fecaca"}`,
+                  }}
+                >
+                  {formFeedback.message}
+                </div>
+              )}
+              <form className="contact-form" onSubmit={handleSendRequest}>
                 <div className="form-group">
                   <label htmlFor="name">Full Name</label>
                   <input
                     type="text"
                     id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Enter your name"
                     required
                   />
@@ -167,8 +247,20 @@ function ProductPage() {
                   <input
                     type="email"
                     id="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="Enter your email"
                     required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="phone">Phone Number (Optional)</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="Enter your phone number"
                   />
                 </div>
                 <div className="form-group">
@@ -176,11 +268,13 @@ function ProductPage() {
                   <textarea
                     id="message"
                     rows="3"
-                    placeholder="Hello, I am interested in..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Hello, I am interested in this property..."
                   ></textarea>
                 </div>
-                <button type="submit" className="submit-button">
-                  Send Request
+                <button type="submit" className="submit-button" disabled={submitting}>
+                  {submitting ? "Sending Request..." : "Send Request"}
                 </button>
               </form>
             </div>

@@ -14,6 +14,22 @@ function MyProperties() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const handleDeleteProperty = async (id) => {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this property advertisement? It will be deleted from everywhere."
+      )
+    ) {
+      return;
+    }
+    try {
+      await axiosInstance.delete(`/properties/${id}`);
+      setProperties((prev) => prev.filter((p) => p._id !== id));
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to delete property.");
+    }
+  };
+
   useEffect(() => {
     let active = true;
 
@@ -93,13 +109,23 @@ function MyProperties() {
                       📍 {property.address || property.location || "Dhaka, Bangladesh"}
                     </p>
 
-                    <div className="my-properties-meta">
-                      <span>{property.bedrooms || 0} Beds</span>
-                      <span>{property.bathrooms || 0} Baths</span>
-                      <span>{property.area || 0} sq ft</span>
+                    <div className="my-properties-meta-row">
+                      <div className="my-properties-meta">
+                        <span>{property.bedrooms || 0} Beds</span>
+                        <span>{property.bathrooms || 0} Baths</span>
+                        <span>{property.area || 0} sq ft</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="my-properties-delete-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteProperty(property._id);
+                        }}
+                      >
+                        Delete
+                      </button>
                     </div>
-
-
                   </div>
                 </div>
               );

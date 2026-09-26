@@ -1,5 +1,6 @@
 import express from "express";
 import Property from "../model/Property.js";
+import Request from "../model/Request.js";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import checkToken from "../middlewares/checkToken.js";
@@ -31,6 +32,10 @@ router.post(
   upload.array("images", 5),
   async (req, res) => {
     try {
+      if (!req.files || req.files.length === 0) {
+        return res.json({ urls: [] });
+      }
+
       const urls = [];
       
       for (const file of req.files) {
@@ -152,6 +157,7 @@ router.delete("/:id", checkToken, allowRoles("advertiser"), async (req, res) => 
     if (!deletedProperty) {
       return res.status(404).json({ message: "Property not found or you do not have permission to delete it" });
     }
+    await Request.deleteMany({ property: req.params.id });
     res.json({ message: "Property deleted successfully!" });
   } catch (error) {
     res.status(500).json({ message: "Failed to delete property", error: error.message });
