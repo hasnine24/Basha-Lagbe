@@ -18,6 +18,7 @@ import PublicRoute from "./utils/PublicRoute";
 
 import MyProperties from "./pages/waseq/MyProperties";
 import RequestPage from "./pages/waseq/RequestPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import CarbonFootprintDisplay from "./components/CarbonFootprintDisplay";
 
 function ScrollToTop() {
@@ -56,6 +57,10 @@ function App() {
           <Route path="/edit-property" element={<EditPropertyPage />} />
           <Route path="/edit-property/:id" element={<EditPropertyPage />} />
           <Route path="/my-properties" element={<MyProperties />} />
+        </Route>
+
+        <Route element={<RoleRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminDashboard />} />
         </Route>
       </Routes>
     </>

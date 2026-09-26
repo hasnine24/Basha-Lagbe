@@ -7,7 +7,8 @@ import authRouter from "./api/auth.js";
 import userRoutes from "./api/users.js";
 import propertiesRouter from "./api/properties.js";
 import requestsRouter from "./api/requests.js";
-import carbonTracking from "./middlewares/carbonTracking.js";
+import adminRouter from "./api/admin.js";
+import carbonTracking from "./middleware/carbonTracking.js";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -26,6 +27,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRouter);
 app.use("/api/properties", propertiesRouter);
 app.use("/api/requests", requestsRouter);
+app.use("/api/admin", adminRouter);
 
 const startServer = async () => {
   await connectDB();

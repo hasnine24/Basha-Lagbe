@@ -54,13 +54,20 @@ function ProfileSidebar({ isOpen, onClose }) {
                 <span className="profile-role-copy">
                   <span className="profile-role-caption">Account type</span>
                   <strong>
-                    {user.role === "seeker" ? "Home Seeker" : "Property Advertiser"}
+                    {user.role === "seeker"
+                      ? "Home Seeker"
+                      : user.role === "admin"
+                        ? "Admin"
+                        : "Property Advertiser"}
                   </strong>
                 </span>
               </div>
             </div>
 
             <nav className="profile-sidebar-nav">
+              {user.role === "admin" && (
+                <Link to="/admin" onClick={onClose}>Admin Dashboard</Link>
+              )}
               {user.role === "advertiser" && (
                 <>
                   <Link to="/add-property" onClick={onClose}>Add Property</Link>
@@ -68,7 +75,9 @@ function ProfileSidebar({ isOpen, onClose }) {
                   <Link to="/my-properties" onClick={onClose}>My Properties</Link>
                 </>
               )}
-              <Link to="/requests" onClick={onClose}>Requests</Link>
+              {user.role !== "admin" && (
+                <Link to="/requests" onClick={onClose}>Requests</Link>
+              )}
               <button type="button" onClick={handleLogout}>Logout</button>
             </nav>
           </div>
