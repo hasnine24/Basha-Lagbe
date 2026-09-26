@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
+import { useToast } from "../pages/tahmid/Toast";
 
 const AuthContext = createContext(null);
 
@@ -19,6 +20,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
 
   useEffect(() => {
     let active = true;
@@ -42,15 +44,27 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axiosInstance.post("/auth/login", { email, password });
-    setUser(response.data);
-    navigate("/");
+    try {
+      const response = await axiosInstance.post("/auth/login", { email, password });
+      setUser(response.data);
+      showSuccess("Login successful.");
+      navigate("/");
+    } catch (error) {
+      showError(error.response?.data?.error || "Login failed. Please try again.");
+      throw error;
+    }
   };
 
   const logout = async () => {
-    await axiosInstance.post("/auth/logout");
-    setUser(null);
-    navigate("/login");
+    try {
+      await axiosInstance.post("/auth/logout");
+      setUser(null);
+      showSuccess("Logout successful.");
+      navigate("/login");
+    } catch (error) {
+      showError(error.response?.data?.error || "Logout failed. Please try again.");
+      throw error;
+    }
   };
 
   return (
