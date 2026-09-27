@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./add_property_page.css";
+import "./AddPropertyPage.css";
 import "./Properties.css";
 import Header from "./Header";
 import Footer from "./Footer";

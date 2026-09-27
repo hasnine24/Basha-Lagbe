@@ -9,9 +9,9 @@ import GetStarted from "./pages/tahmid/GetStarted";
 
 import Properties from "./pages/hasnine/Properties";
 
-import ProductPage from "./pages/hasnine/product_page";
-import AddPropertyPage from "./pages/hasnine/add_property_page";
-import EditPropertyPage from "./pages/hasnine/edit_property_page";
+import ProductPage from "./pages/hasnine/ProductPage";
+import AddPropertyPage from "./pages/hasnine/AddPropertyPage";
+import EditPropertyPage from "./pages/hasnine/EditPropertyPage";
 import PrivateRoute from "./utils/PrivateRoute";
 import RoleRoute from "./utils/RoleRoute";
 import PublicRoute from "./utils/PublicRoute";

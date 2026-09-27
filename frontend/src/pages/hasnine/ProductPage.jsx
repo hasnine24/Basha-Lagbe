@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
-import "./product_details.css";
+import "./ProductDetails.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useAuthContext } from "../../contexts/AuthContext";

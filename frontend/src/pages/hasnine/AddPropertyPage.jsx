@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./add_property_page.css";
+import "./AddPropertyPage.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import axiosInstance from "../../utils/axiosInstance";
