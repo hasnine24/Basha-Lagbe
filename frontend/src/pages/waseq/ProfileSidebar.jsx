@@ -78,7 +78,7 @@ function ProfileSidebar({ isOpen, onClose }) {
               {user.role !== "admin" && (
                 <Link to="/requests" onClick={onClose}>Requests</Link>
               )}
-              <button type="button" onClick={handleLogout}>Logout</button>
+              <button type="button" className="logout-btn" onClick={handleLogout}>Logout</button>
             </nav>
           </div>
         ) : (
